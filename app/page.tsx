@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import SearchBar from "@/components/SearchBar";
 import UserProfile from "@/components/UserProfile";
 import ThemeToggle from "@/components/ThemeToggle";
