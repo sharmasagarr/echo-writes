@@ -116,7 +116,7 @@ export default function Login({ setIsClickedLogin }: { setIsClickedLogin: (value
         </button>
       </form>
       <div className="text-black dark:text-white text-[16px]">
-        Don't have an account?{" "}
+        Don&apos;t have an account?{" "}
         <button
           className="text-[#0066ff] dark:text-blue-400 cursor-pointer"
           onClick={() => setIsClickedLogin(false)}
