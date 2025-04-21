@@ -15,7 +15,7 @@ export default function SignUp({ setIsClickedLogin }: { setIsClickedLogin: (valu
     setError(null);
   
     try {
-      // STEP 1: Call signup API
+      // STEP 1: Calling signup API
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -29,7 +29,7 @@ export default function SignUp({ setIsClickedLogin }: { setIsClickedLogin: (valu
         return;
       }
   
-      // STEP 2: Automatically log the user in after signup
+      // STEP 2: Automatically logging the user in after signup
       const result = await signIn("credentials", {
         redirect: false,
         email,
