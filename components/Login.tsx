@@ -45,7 +45,7 @@ export default function Login({ setIsClickedLogin }: { setIsClickedLogin: (value
   return (
     <>
       <div className="flex items-center gap-2">
-        <Image src="/logo-blue.svg" alt="logo-blue" className="h-8 w-8" />
+        <Image src="/logo-blue.svg" alt="logo-blue" width={50} height={50} />
         <span className="text-[#000000] dark:text-white text-lg">Welcome Back 😊</span>
       </div>
       <div className="text-[#000000] dark:text-gray-300 text-[12px] mt-2 ml-2">
@@ -61,10 +61,10 @@ export default function Login({ setIsClickedLogin }: { setIsClickedLogin: (value
       <div className="flex flex-col gap-2 mt-3 items-center justify-center">
         <button 
           onClick={() => signIn("google")}
-          className="cursor-pointer border border-gray-600 dark:border-white rounded-md"
+          className="cursor-pointer border border-gray-400 dark:border-white rounded-md"
         >
           <div className="w-50 h-10 pl-2 rounded-lg flex items-center gap-3">
-            <Image src="/google.svg" alt="google-icon" className="w-5 h-5" />
+            <Image src="/google.svg" alt="google-icon" width={28} height={28} />
             <span className="text-black dark:text-white text-sm w-fit">Continue with Google</span>
           </div>
         </button>
@@ -73,8 +73,8 @@ export default function Login({ setIsClickedLogin }: { setIsClickedLogin: (value
           className="cursor-pointer border border-gray-400 dark:border-white rounded-md"
         >
           <div className="w-50 h-10 pl-2 rounded-lg flex items-center gap-3">
-            <Image src="/github.svg" alt="github-icon" className="w-5 h-5 block dark:hidden" />
-            <Image src="/github-dark.svg" alt="github-icon" className="w-5 h-5 hidden dark:block" />
+            <Image src="/github.svg" alt="github-icon" className="block dark:hidden" width={28} height={28} />
+            <Image src="/github-dark.svg" alt="github-icon" className="hidden dark:block" width={28} height={28} />
             <span className="text-black dark:text-white text-sm w-fit">Continue with Github</span>
           </div>
         </button>
