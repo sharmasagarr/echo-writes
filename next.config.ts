@@ -7,9 +7,6 @@ const nextConfig: NextConfig = {
     inlineCss: true,
     useCache: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
 const withMDX = createMDX();
