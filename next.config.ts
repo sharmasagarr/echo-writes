@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   experimental: {
     inlineCss: true,
-    useCache: true,
+    useCache: false,
   },
 };
 
