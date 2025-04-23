@@ -30,7 +30,7 @@ const NavBar = () => {
 
     return (
         <header className="flex items-center w-full h-[4rem] lg:h-[5rem] dark:bg-gray-800 bg-[#0066ff] text-white dark:text-black shadow-xl">
-            <nav className="flex justify-between items-center w-full mx-[1rem] lg:mx-[5rem]">
+            <nav className="flex justify-between items-center w-full mx-[1.5rem] lg:mx-[5rem]">
                 <div className={clsx(
                     "flex justify-center items-center gap-2 lg:gap-3",
                     {
