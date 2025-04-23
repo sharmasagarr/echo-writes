@@ -7,9 +7,11 @@ import UserProfile from "@/components/UserProfile";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useState, useEffect, useRef } from 'react';
 import { Menu } from 'lucide-react';
+import clsx from "clsx";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [showSearch, setShowSearch] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -29,30 +31,48 @@ const NavBar = () => {
     return (
         <header className="flex items-center max-w-full h-[3rem] lg:h-[5rem] dark:bg-gray-800 bg-[#0066ff] text-white dark:text-black shadow-xl">
             <nav className="flex justify-between items-center w-full mx-[1.5rem] lg:mx-[5rem]">
-                <div className="logo flex justify-center items-center gap-2 lg:gap-3">
-                <Image
-                    src="/logo-white.svg"
-                    alt="logo-white"
-                    width={72}
-                    height={72}
-                    className="w-[40px] lg:w-[72px] "
-                />
-                <span className="mynerve text-xl lg:text-3xl ">echoWrites</span>
+                <div className={clsx(
+                    "flex justify-center items-center gap-2 lg:gap-3",
+                    {
+                        "hidden": showSearch,
+                    }
+                )}>
+                    <Image
+                        src="/logo-white.svg"
+                        alt="logo-white"
+                        width={72}
+                        height={72}
+                        className="w-[40px] lg:w-[72px] "
+                    />
+                    <span className="mynerve text-xl lg:text-3xl ">echoWrites</span>
                 </div>
                 <div className="hidden lg:flex justify-between items-center gap-6 text-white text-lg">
                     <Link href="/">Home</Link>
                     <Link href="/">Explore</Link>
                     <Link href="/">Write</Link>
                     <Link href="/">About</Link>
-                    <SearchBar />
+                    <SearchBar
+                        showSearch={showSearch} 
+                        setShowSearch={setShowSearch}
+                    />
                     <UserProfile />
                     <ThemeToggle />
                 </div>
 
-                <div className="lg:hidden flex">
-                    <SearchBar />
+                <div className="lg:hidden w-full flex gap-2">
+                    <div className="w-full flex items-center">
+                        <SearchBar
+                            showSearch={showSearch} 
+                            setShowSearch={setShowSearch} 
+                        />
+                    </div>
                     <button
-                        className="flex items-center"
+                        className={clsx(
+                            "flex items-center",
+                            {
+                                "hidden": showSearch
+                            }
+                        )}
                         onClick={() => setIsOpen((prev) => !prev)}
                     >
                         <Menu className="w-6 h-6 dark:text-white"/>

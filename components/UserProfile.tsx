@@ -64,10 +64,19 @@ export default function PopupMenu() {
       ):(
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-          <Button className="bg-transparent h-10 w-13 p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none">
-            <CircleUserRound className="!h-6 !w-6 text-white" />
-            <ChevronDown className="h-6 w-6 text-white -ml-2" />
-          </Button>
+          <div className="flex items-center gap-2">
+            {/* Mobile: Show "My Account" + icon */}
+            <Button className="lg:hidden bg-transparent text-white h-full !p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none">
+              <span className="text-sm">My Account</span>
+              <ChevronDown className="!h-3 !w-3 text-white -ml-2" />
+            </Button>
+
+            {/* Desktop: Show user icon + dropdown */}
+            <Button className="hidden lg:flex bg-transparent h-10 w-14 p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none">
+              <CircleUserRound className="!h-7 !w-7 text-white" />
+              <ChevronDown className="text-white -ml-2" />
+            </Button>
+          </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             side="bottom"
