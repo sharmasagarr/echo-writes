@@ -41,7 +41,7 @@ export default function PopupMenu() {
   return (
     <>
       {status !== "authenticated" ? (
-        <div className="flex gap-2">
+        <div className="flex flex-col lg:flex-row gap-2">
           <Button
             onClick={() => {
               setIsOpen(true);
@@ -69,7 +69,11 @@ export default function PopupMenu() {
             <ChevronDown className="h-6 w-6 text-white -ml-2" />
           </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent
+            side="bottom"
+            align="start"
+            className="mt-2 w-[140px] left-0 right-auto lg:left-auto lg:-right-15 absolute"
+          >
             <DropdownMenuItem onClick={() => signOut({redirectTo: "/"})}>
               Logout
             </DropdownMenuItem>
