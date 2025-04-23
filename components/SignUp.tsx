@@ -72,7 +72,7 @@ export default function SignUp({ setIsClickedLogin }: { setIsClickedLogin: (valu
           className="w-full flex justify-center cursor-pointer border border-gray-400 dark:border-white rounded-md"
         >
           <div className="h-10 pl-2 rounded-lg flex items-center gap-3">
-            <Image src="/google.svg" alt="google-icon" width={28} height={28} />
+            <Image src="/google.svg" alt="google-icon" width={23} height={23} />
             <span className="text-black dark:text-white text-sm w-fit">Continue with Google</span>
           </div>
         </button>
@@ -81,7 +81,7 @@ export default function SignUp({ setIsClickedLogin }: { setIsClickedLogin: (valu
             className="w-full flex justify-center cursor-pointer border border-gray-400 dark:border-white rounded-md"
         >
           <div className="h-10 pl-2 rounded-lg flex items-center gap-3">
-            <Image src="/github.svg" alt="github-icon" className="block dark:hidden" width={28} height={28} />
+            <Image src="/github.svg" alt="github-icon" className="block dark:hidden" width={23} height={23} />
             <Image src="/github-dark.svg" alt="github-icon" className="hidden dark:block" width={28} height={28} />
             <span className="text-black dark:text-white text-sm w-fit">Continue with Github</span>
           </div>
@@ -123,7 +123,7 @@ export default function SignUp({ setIsClickedLogin }: { setIsClickedLogin: (valu
           {loading ? 'Signing Up...' : 'SignUp'}
         </button>
       </form>
-      <div className="text-black dark:text-white text-[16px]">
+      <div className="text-black dark:text-white text-[16px] mt-2">
         Already have an account?{" "}
         <button className="text-[#0066ff] dark:text-blue-400 cursor-pointer" onClick={() => setIsClickedLogin(true)}>
           Log in
