@@ -64,7 +64,7 @@ export default function PopupMenu() {
       ):(
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-          <Button className="bg-transparent h-10 w-13 p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer">
+          <Button className="bg-transparent h-10 w-13 p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none">
             <CircleUserRound className="!h-6 !w-6 text-white" />
             <ChevronDown className="h-6 w-6 text-white -ml-2" />
           </Button>
