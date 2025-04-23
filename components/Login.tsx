@@ -61,18 +61,18 @@ export default function Login({ setIsClickedLogin }: { setIsClickedLogin: (value
       <div className="flex flex-col gap-2 mt-3 items-center justify-center">
         <button 
           onClick={() => signIn("google")}
-          className="cursor-pointer border border-gray-400 dark:border-white rounded-md"
+          className="w-full flex justify-center  cursor-pointer border border-gray-400 dark:border-white rounded-md"
         >
-          <div className="w-50 h-10 pl-2 rounded-lg flex items-center gap-3">
+          <div className="h-10 pl-2 rounded-lg flex items-center gap-3">
             <Image src="/google.svg" alt="google-icon" width={28} height={28} />
             <span className="text-black dark:text-white text-sm w-fit">Continue with Google</span>
           </div>
         </button>
         <button 
           onClick={() => signIn("github")}
-          className="cursor-pointer border border-gray-400 dark:border-white rounded-md"
+          className="w-full flex justify-center cursor-pointer border border-gray-400 dark:border-white rounded-md"
         >
-          <div className="w-50 h-10 pl-2 rounded-lg flex items-center gap-3">
+          <div className="h-10 pl-2 rounded-lg flex items-center gap-3">
             <Image src="/github.svg" alt="github-icon" className="block dark:hidden" width={28} height={28} />
             <Image src="/github-dark.svg" alt="github-icon" className="hidden dark:block" width={28} height={28} />
             <span className="text-black dark:text-white text-sm w-fit">Continue with Github</span>
@@ -83,8 +83,8 @@ export default function Login({ setIsClickedLogin }: { setIsClickedLogin: (value
       <div className="-mt-[14px] flex justify-center">
         <span className="w-fit text-gray-400 dark:text-gray-200 text-[16px] bg-white dark:bg-gray-900 pl-2 pr-2">OR</span>
       </div>
-      <form className="text-black dark:text-white p-4 -mt-[15px]" onSubmit={handleLogin}>
-        <label htmlFor="email" className="text-[16px] ml-2">Email</label>
+      <form className="text-black dark:text-white" onSubmit={handleLogin}>
+        <label htmlFor="email" className="text-[16px] ml-1">Email</label>
         <input
           type="email"
           name="email"
@@ -94,7 +94,7 @@ export default function Login({ setIsClickedLogin }: { setIsClickedLogin: (value
           className="border border-gray-400 dark:border-gray-400 dark:bg-gray-850 dark:text-white rounded-md w-full pl-2 text-[0.8rem] h-8"
           required
         />
-        <label htmlFor="password" className="text-[16px] ml-2">Password</label>
+        <label htmlFor="password" className="text-[16px] ml-1">Password</label>
         <input
           type="password"
           name="password"

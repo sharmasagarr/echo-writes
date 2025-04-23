@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CircleUserRound, ChevronDown } from 'lucide-react';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button";
-import {Skeleton} from "@/components/ui/skeleton"
+import {Skeleton} from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import SignUp from "@/components/SignUp";
 import Login from "@/components/Login";
@@ -34,7 +34,7 @@ export default function PopupMenu() {
 
   if (!hasMounted || status === "loading") {
     return (
-      <Skeleton className="w-24 h-8 rounded-lg" />
+      <Skeleton className="w-24 h-8 rounded-lg dark:text-white" />
     );
   }
 

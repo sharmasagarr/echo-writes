@@ -27,7 +27,10 @@ export default function SearchBar({showSearch, setShowSearch}: {showSearch: bool
   return (
     <>
       <div className="w-full flex justify-between items-center gap-2">
-      {showSearch && <div className="w-8 h-7 border flex items-center justify-center border-white rounded-3xl"><MoveLeft onClick={() => setShowSearch(false)} className="p-1"/></div>}
+      {showSearch && 
+        <div className="w-8 h-7 border flex items-center justify-center border-white rounded-3xl">
+          <MoveLeft onClick={() => setShowSearch(false)} className="p-1 dark:text-white"/>
+        </div>}
       {(showSearch || isDesktop) && (
         <form
           action="/"

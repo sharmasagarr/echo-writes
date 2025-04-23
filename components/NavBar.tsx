@@ -29,8 +29,8 @@ const NavBar = () => {
     }, [isOpen]);
 
     return (
-        <header className="flex items-center max-w-full h-[3rem] lg:h-[5rem] dark:bg-gray-800 bg-[#0066ff] text-white dark:text-black shadow-xl">
-            <nav className="flex justify-between items-center w-full mx-[1.5rem] lg:mx-[5rem]">
+        <header className="flex items-center w-full h-[4rem] lg:h-[5rem] dark:bg-gray-800 bg-[#0066ff] text-white dark:text-black shadow-xl">
+            <nav className="flex justify-between items-center w-full mx-[1rem] lg:mx-[5rem]">
                 <div className={clsx(
                     "flex justify-center items-center gap-2 lg:gap-3",
                     {
@@ -40,8 +40,8 @@ const NavBar = () => {
                     <Image
                         src="/logo-white.svg"
                         alt="logo-white"
-                        width={72}
-                        height={72}
+                        width={40}
+                        height={40}
                         className="w-[40px] lg:w-[72px] "
                     />
                     <span className="mynerve text-xl lg:text-3xl ">echoWrites</span>
@@ -59,7 +59,12 @@ const NavBar = () => {
                     <ThemeToggle />
                 </div>
 
-                <div className="lg:hidden w-full flex gap-2">
+                <div className={clsx(
+                    "lg:hidden flex items-center gap-2",
+                    {
+                        "w-full": showSearch
+                    }
+                    )}>
                     <div className="w-full flex items-center">
                         <SearchBar
                             showSearch={showSearch} 
