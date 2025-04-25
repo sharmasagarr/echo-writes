@@ -78,7 +78,7 @@ export default function SignUp({ setIsClickedLogin }: {setIsClickedLogin: (value
       <div className="-mt-[14px] flex justify-center">
         <span className="w-fit text-gray-400 dark:text-gray-200 text-[16px] bg-white dark:bg-gray-900 pl-2 pr-2">OR</span>
       </div>
-      <form action={action} className=" text-black dark:text-white">
+      <form action={action} className="text-black dark:text-white" id="signup-form">
         <label htmlFor="name" className="text-[16px] ml-1">Name</label>
         <input
           id="name"
