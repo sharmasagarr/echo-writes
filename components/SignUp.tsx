@@ -40,7 +40,7 @@ export default function SignUp({ setIsClickedLogin }: {setIsClickedLogin: (value
     if (state?.success) {
       handleLogin(email, password);
     }
-  }, [state?.success]);
+  }, [state?.success, email, password]);
   
   return (
     <>
