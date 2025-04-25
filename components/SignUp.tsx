@@ -12,8 +12,6 @@ export default function SignUp({ setIsClickedLogin }: {setIsClickedLogin: (value
   const [password, setPassword] = useState<string>('');
   const [state, action, pending] = useActionState(signup, undefined);
 
-  console.log(state);
-
   async function handleLogin(email:string, password:string) {
     try {
       // Attempt to log the user in immediately after signup success
