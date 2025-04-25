@@ -104,7 +104,7 @@ export default function PopupMenu() {
             <motion.div
               ref={popupRef}
               className={cn(
-                "w-[450px] max-w-full fixed top-77 left-1/2 bg-white border shadow-4xl rounded-xl p-6 z-50",
+                "w-[450px] max-w-full fixed top-1/2 left-1/2 bg-white border shadow-4xl rounded-xl p-6 z-50",
                 "transform -translate-x-1/2 -translate-y-1/2 will-change-transform dark:bg-gray-900"
               )}
               initial={{ opacity: 0, scale: 0.95 }}
