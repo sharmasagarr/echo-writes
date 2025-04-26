@@ -111,7 +111,7 @@ const NavBar = () => {
                             <Link href="/" onClick={() => setIsOpen(false)}>About</Link><hr />
                             <ThemeToggle /><hr />
                         </div>
-                        <div className="flex flex-col gap-3"><hr /><UserProfile /><hr /></div>
+                        <div className="flex flex-col gap-3 mb-2"><hr /><UserProfile /></div>
                     </div>
 
                 </div>

@@ -85,7 +85,7 @@ export default function PopupMenu() {
           <DropdownMenuContent
             side="bottom"
             align="start"
-            className="mt-2 w-fit left-0 right-auto lg:left-auto lg:-right-15 absolute"
+            className="mb-3 lg:mt-2 w-fit top-1/2 left-1/2 lg:left-auto lg:-right-15 lg:absolute"
           >
             <DropdownMenuItem>
               <div>
