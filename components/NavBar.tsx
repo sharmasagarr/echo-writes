@@ -96,12 +96,12 @@ const NavBar = () => {
                     <div
                         ref={menuRef}
                         className={clsx(
-                            "h-[calc(100vh-4rem)] flex flex-col justify-between gap-3 absolute top-[4rem] left-0 w-full bg-[#0066ff] dark:bg-gray-800 dark:text-white px-4 py-3 shadow-md space-y-3 transition-opacity duration-300 ease-in-out", // Use calc for height, adjust top offset, add transitions
+                            "h-[calc(100dvh-4rem)] flex flex-col justify-between gap-3 absolute top-[4rem] left-0 w-full bg-[#0066ff] dark:bg-gray-800 dark:text-white px-4 py-3 shadow-md space-y-3 transition-opacity duration-300 ease-in-out", // Use calc for height, adjust top offset, add transitions
                             {
                                 'flex opacity-100': isOpen,
-                                'opacity-0 pointer-events-none': !isOpen // Simplified conditional classes
+                                'opacity-0 pointer-events-none': !isOpen
                             },
-                            "lg:hidden z-10" // Ensure it's hidden on large screens and has z-index
+                            "lg:hidden z-10"
                         )}
                     >
                         <div className="flex flex-col justify-start gap-3">
@@ -111,7 +111,7 @@ const NavBar = () => {
                             <Link href="/" onClick={() => setIsOpen(false)}>About</Link><hr />
                             <ThemeToggle /><hr />
                         </div>
-                        <div className="flex flex-col gap-3"><hr /><UserProfile /></div>
+                        <div className="flex flex-col gap-3"><hr /><UserProfile /><hr /></div>
                     </div>
 
                 </div>
