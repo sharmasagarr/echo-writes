@@ -1,44 +1,50 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image"
+import Image from "next/image";
+import LogoWhite from "@/public/logo-white.svg"
 import SearchBar from "@/components/SearchBar";
 import UserProfile from "@/components/UserProfile";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useState, useEffect, useRef } from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import clsx from "clsx";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const menuButtonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         const handler = (event: MouseEvent) => {
-          if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-            setIsOpen(false);
-          }
+            if (
+                menuRef.current && !menuRef.current.contains(event.target as Node) &&
+                menuButtonRef.current && !menuButtonRef.current.contains(event.target as Node)
+            ) {
+                setIsOpen(false);
+            }
         };
+
         if (isOpen) {
-          document.addEventListener('mousedown', handler);
+            document.addEventListener('mousedown', handler);
         }
+
         return () => {
-          document.removeEventListener('mousedown', handler);
+            document.removeEventListener('mousedown', handler);
         };
     }, [isOpen]);
 
     return (
         <header className="flex items-center w-full h-[4rem] lg:h-[5rem] dark:bg-gray-800 bg-[#0066ff] text-white dark:text-black shadow-xl">
             <nav className="flex justify-between items-center w-full mx-[1.5rem] lg:mx-[5rem]">
+                {/* Logo Section */}
                 <div className={clsx(
                     "flex justify-center items-center gap-2 lg:gap-3",
-                    {
-                        "hidden": showSearch,
-                    }
+                    { "hidden": showSearch }
                 )}>
                     <Image
-                        src="/logo-white.svg"
+                        src={LogoWhite}
                         alt="logo-white"
                         width={40}
                         height={40}
@@ -46,57 +52,68 @@ const NavBar = () => {
                     />
                     <span className="mynerve text-xl lg:text-3xl ">echoWrites</span>
                 </div>
+
+                {/* Desktop Nav */}
                 <div className="hidden lg:flex justify-between items-center gap-6 text-white text-lg">
                     <Link href="/">Home</Link>
                     <Link href="/">Explore</Link>
                     <Link href="/">Write</Link>
                     <Link href="/">About</Link>
                     <SearchBar
-                        showSearch={showSearch} 
+                        showSearch={showSearch}
                         setShowSearch={setShowSearch}
                     />
                     <UserProfile />
                     <ThemeToggle />
                 </div>
 
+                {/* Mobile Nav Area */}
                 <div className={clsx(
-                    "lg:hidden flex items-center gap-2",
-                    {
-                        "w-full": showSearch
-                    }
-                    )}>
+                    "lg:hidden flex items-center gap-2 h-full",
+                    { "w-full": showSearch }
+                )}>
+                    {/* Mobile Search Bar */}
                     <div className="w-full flex items-center">
                         <SearchBar
-                            showSearch={showSearch} 
-                            setShowSearch={setShowSearch} 
+                            showSearch={showSearch}
+                            setShowSearch={setShowSearch}
                         />
                     </div>
+
+                    {/* Mobile Menu Toggle Button */}
                     <button
+                        ref={menuButtonRef}
                         className={clsx(
                             "flex items-center",
-                            {
-                                "hidden": showSearch
-                            }
+                            { "hidden": showSearch }
                         )}
                         onClick={() => setIsOpen((prev) => !prev)}
                     >
-                        <Menu className="w-6 h-6 dark:text-white"/>
+                        {!isOpen? <Menu className="w-6 h-6 dark:text-white"/>: <X className="w-6 h-6 dark:text-white"/>}
                     </button>
 
+                    {/* Mobile Menu Dropdown */}
                     <div
                         ref={menuRef}
-                        className={`absolute top-13 left-0 w-full bg-[#0066ff] dark:bg-gray-800 dark:text-white px-4 py-3 shadow-md flex-col space-y-3 ${
-                            isOpen ? 'flex opacity-100' : 'opacity-0 pointer-events-none'
-                        } lg:hidden z-10`}
-                        
+                        className={clsx(
+                            "h-[calc(100vh-4rem)] flex flex-col justify-between gap-3 absolute top-[4rem] left-0 w-full bg-[#0066ff] dark:bg-gray-800 dark:text-white px-4 py-3 shadow-md space-y-3 transition-opacity duration-300 ease-in-out", // Use calc for height, adjust top offset, add transitions
+                            {
+                                'flex opacity-100': isOpen,
+                                'opacity-0 pointer-events-none': !isOpen // Simplified conditional classes
+                            },
+                            "lg:hidden z-10" // Ensure it's hidden on large screens and has z-index
+                        )}
                     >
-                    <Link href="/">Home</Link>
-                    <Link href="/">Explore</Link>
-                    <Link href="/">Write</Link>
-                    <Link href="/">About</Link>
-                    <UserProfile />
-                    <ThemeToggle />
+                        <div className="flex flex-col justify-start gap-3">
+                            <hr /><Link href="/" onClick={() => setIsOpen(false)}>Home</Link><hr /> {/* Optional: Close menu on link click */}
+                            <Link href="/" onClick={() => setIsOpen(false)}>Explore</Link><hr />
+                            <Link href="/" onClick={() => setIsOpen(false)}>Write</Link><hr />
+                            <Link href="/" onClick={() => setIsOpen(false)}>About</Link><hr />
+                            <ThemeToggle /><hr />
+                        </div>
+                        <div className="flex flex-col gap-3"><hr /><UserProfile /></div>
                     </div>
+
                 </div>
             </nav>
         </header>

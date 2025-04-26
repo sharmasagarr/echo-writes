@@ -47,7 +47,7 @@ export default function PopupMenu() {
               setIsOpen(true);
               setIsClickedLogin(true);
             }}
-            className="w-fit flex items-center bg-transparent border shadow-none rounded-sm lg:rounded-3xl cursor-pointer hover:bg-white hover:text-black dark:border-white dark:text-white"
+            className="flex items-center bg-transparent border shadow-none rounded-3xl cursor-pointer hover:bg-white hover:text-black dark:border-white dark:text-white"
           >
             Login
           </Button>
@@ -56,7 +56,7 @@ export default function PopupMenu() {
               setIsOpen(true);
               setIsClickedLogin(false);
             }}
-            className="w-fit flex items-center bg-white text-black shadow-none rounded-sm lg:rounded-3xl cursor-pointer hover:bg-white"
+            className="flex items-center bg-white text-black shadow-none rounded-3xl cursor-pointer hover:bg-white"
           >
             SignUp
           </Button>
@@ -66,10 +66,14 @@ export default function PopupMenu() {
           <DropdownMenuTrigger asChild>
           <div className="flex items-center gap-2">
             {/* Mobile: Show "My Account" + icon */}
-            <Button className="lg:hidden bg-transparent text-white h-full !p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none">
-              <span className="text-sm">My Account</span>
-              <ChevronDown className="!h-3 !w-3 text-white -ml-2" />
+            <Button className="lg:hidden bg-transparent text-white h-full !p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none flex flex-col items-start justify-center">
+              <div className="flex items-center gap-0">
+                <h1 className="text-small">{session.user.name}</h1>
+                <ChevronDown className="!h-3 !w-3 text-white" />
+              </div>
+              <small className="text-xs opacity-80 -mt-1">{session.user.email}</small>
             </Button>
+
 
             {/* Desktop: Show user icon + dropdown */}
             <Button className="hidden lg:flex bg-transparent h-10 w-14 p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none">
@@ -81,8 +85,14 @@ export default function PopupMenu() {
           <DropdownMenuContent
             side="bottom"
             align="start"
-            className="mt-2 w-[140px] left-0 right-auto lg:left-auto lg:-right-15 absolute"
+            className="mt-2 w-fit left-0 right-auto lg:left-auto lg:-right-15 absolute"
           >
+            <DropdownMenuItem>
+              <div>
+                <p className="font-medium">{session.user.name}</p>
+                <small>{session.user.email}</small>
+              </div>
+              </DropdownMenuItem><hr />
             <DropdownMenuItem onClick={() => signOut({redirectTo: "/"})}>
               Logout
             </DropdownMenuItem>
