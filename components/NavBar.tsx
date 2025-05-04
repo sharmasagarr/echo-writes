@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import LogoWhite from "@/public/logo-white.svg"
-import SearchBar from "@/components/SearchBar";
+import SearchBarMobile from "@/components/SearchBarMobile";
 import UserProfile from "@/components/UserProfile";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useState, useEffect, useRef } from 'react';
@@ -36,8 +36,8 @@ const NavBar = () => {
     }, [isOpen]);
 
     return (
-        <header className="flex items-center w-full h-[4rem] lg:h-[5rem] dark:bg-gray-800 bg-[#0066ff] text-white dark:text-black shadow-xl">
-            <nav className="flex justify-between items-center w-full mx-[1.5rem] lg:mx-[5rem]">
+        <header className="flex items-center w-full h-[4rem] lg:h-[5rem] dark:bg-gray-800 bg-[#0066ff] text-white dark:text-black shadow-xl border-b-3">
+            <nav className="flex justify-between items-center w-screen mx-[1.5rem] lg:mx-[5rem]">
                 {/* Logo Section */}
                 <div className={clsx(
                     "flex justify-center items-center gap-2 lg:gap-3",
@@ -50,21 +50,18 @@ const NavBar = () => {
                         height={40}
                         className="w-[40px] lg:w-[72px] "
                     />
-                    <span className="mynerve text-xl lg:text-3xl ">echoWrites</span>
+                    <span className="mynerve text-white text-xl lg:text-3xl ">echoWrites</span>
                 </div>
 
                 {/* Desktop Nav */}
                 <div className="hidden lg:flex justify-between items-center gap-6 text-white text-lg">
                     <Link href="/">Home</Link>
                     <Link href="/">Explore</Link>
-                    <Link href="/">Write</Link>
+                    <Link href="/create-post">Write</Link>
                     <Link href="/">About</Link>
-                    <SearchBar
-                        showSearch={showSearch}
-                        setShowSearch={setShowSearch}
-                    />
                     <UserProfile />
                     <ThemeToggle />
+                    
                 </div>
 
                 {/* Mobile Nav Area */}
@@ -74,7 +71,7 @@ const NavBar = () => {
                 )}>
                     {/* Mobile Search Bar */}
                     <div className="w-full flex items-center">
-                        <SearchBar
+                        <SearchBarMobile
                             showSearch={showSearch}
                             setShowSearch={setShowSearch}
                         />
@@ -105,7 +102,7 @@ const NavBar = () => {
                         )}
                     >
                         <div className="flex flex-col justify-start gap-3">
-                            <hr /><Link href="/" onClick={() => setIsOpen(false)}>Home</Link><hr /> {/* Optional: Close menu on link click */}
+                            <Link href="/" onClick={() => setIsOpen(false)}>Home</Link><hr /> {/* Optional: Close menu on link click */}
                             <Link href="/" onClick={() => setIsOpen(false)}>Explore</Link><hr />
                             <Link href="/" onClick={() => setIsOpen(false)}>Write</Link><hr />
                             <Link href="/" onClick={() => setIsOpen(false)}>About</Link><hr />

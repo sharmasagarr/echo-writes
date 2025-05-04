@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
  
-export async function signup(state: FormState, formData: FormData) {
+export async function signup(_state: FormState, formData: FormData) {
     try{
         //1. Validate form fields
         const validatedFields = SignupFormSchema.safeParse({

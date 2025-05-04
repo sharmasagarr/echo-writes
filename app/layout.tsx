@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Providers } from "./providers";
-import { Mynerve, Inter, Outfit } from 'next/font/google'
+import { Mynerve, Outfit } from 'next/font/google'
+import { Toaster } from 'react-hot-toast'
+import NavBar from "@/components/NavBar";
 
 const mynerve = Mynerve({ weight: '400', subsets: ['latin'] })
-const inter = Inter({ weight: '400', subsets: ['latin'] })
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" 
-      className={`${mynerve.className} ${inter.className} ${outfit.variable}`}
+      className={`${mynerve.className} ${outfit.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -33,7 +34,11 @@ export default function RootLayout({
           enableSystem 
           disableTransitionOnChange
         >
-          <Providers>{children}</Providers>
+          <Providers>
+            <NavBar />
+            {children}
+            <Toaster position="top-center" />
+          </Providers>
         </ThemeProvider>
         
       </body>

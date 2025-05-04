@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CircleUserRound, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button";
 import {Skeleton} from "@/components/ui/skeleton";
@@ -65,7 +65,7 @@ export default function PopupMenu() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
           <div className="flex items-center gap-2">
-            {/* Mobile: Show "My Account" + icon */}
+            {/* Mobile View*/}
             <Button className="lg:hidden bg-transparent text-white h-full !p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none flex flex-col items-start justify-center">
               <div className="flex items-center gap-0">
                 <h1 className="text-small">{session.user.name}</h1>
@@ -74,12 +74,15 @@ export default function PopupMenu() {
               <small className="text-xs opacity-80 -mt-1">{session.user.email}</small>
             </Button>
 
-
             {/* Desktop: Show user icon + dropdown */}
-            <Button className="hidden lg:flex bg-transparent h-10 w-14 p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none">
-              <CircleUserRound className="!h-7 !w-7 text-white" />
-              <ChevronDown className="text-white -ml-2" />
-            </Button>
+            <button className="hidden lg:flex items-center gap-0 bg-transparent w-fit h-10 p-0 hover:bg-transparent cursor-pointer shadow-none">
+              <div className="w-6 h-6 flex items-center justify-center bg-amber-500 text-sm rounded-xl shrink-0 border-2">
+                {session.user?.name?.charAt(0).toUpperCase()}
+              </div>
+              <ChevronDown className="!w-3 !h-3 text-white" />
+            </button>
+
+
           </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent

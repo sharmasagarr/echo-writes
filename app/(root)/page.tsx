@@ -1,13 +1,11 @@
-"use client";
-
-import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/HeroSection";
+import Sanityeg from "@/components/Posts";
 
 export default function Home() {
   return (
     <main>
-      <NavBar />
       <HeroSection />
+      <Sanityeg />
     </main>
   );
 }

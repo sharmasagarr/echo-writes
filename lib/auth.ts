@@ -4,6 +4,8 @@ import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
 import { PrismaClient } from "@prisma/client";
 import { compare } from "bcryptjs";
+import { client } from "@/app/sanity/lib/client";
+import { createAuthorInSanity } from "@/app/sanity/createAuthor";
 
 const prisma = new PrismaClient();
 
@@ -47,12 +49,36 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
+    async jwt({ token, user, account}) {
+      // Only on first login after sign-in
+      if (user && account) {
         token.id = user.id;
+    
+        // Checking if user exists in DB (to avoid creating author twice)
+        const existing = await prisma.user.findUnique({
+          where: { email: user.email },
+        });
+    
+        if (existing) {
+          // Checking if author exists in Sanity
+          const authorExists = await client.fetch(
+            `*[_type == "author" && email == $email][0]`,
+            { email: user.email }
+          );
+    
+          if (!authorExists) {
+            await createAuthorInSanity({
+              id: existing.id,
+              name: user.name,
+              email: user.email,
+              image: user.image ?? undefined,
+            });
+          }
+        }
       }
+    
       return token;
-    },
+    },  
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id;

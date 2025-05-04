@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { SanityImageSource } from '@sanity/image-url/lib/types/types'
  
 export const SignupFormSchema = z.object({
   name: z
@@ -27,3 +28,30 @@ export type FormState =
       message?: string
     }
   | undefined
+
+export type Comment = {
+  _id: string;
+  text: string;
+  _createdAt: string;
+  author?: {
+    name?: string;
+    image?: SanityImageSource;
+  };
+};
+
+export type Post = {
+  _id: string;
+  title: string;
+  slug: string;
+  image?: SanityImageSource;
+  body: string;
+  _createdAt: string;
+  author?: {
+    name?: string;
+    image?: SanityImageSource;
+  };
+  category?: {
+    title?: string;
+  };
+  views: number;
+};
