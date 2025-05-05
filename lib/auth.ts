@@ -49,39 +49,34 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
-      if (user && account) {
-        token.email = user.email;
-        token.name = user.name;
-    
-        // Don't overwrite token.id if it's already set from previous sessions
-        if (!token.id) {
-          token.id = user.id;
-        }
-    
-        const existing = await prisma.user.findUnique({
-          where: { email: user.email },
-        });
-    
-        if (existing) {
-          const authorExists = await client.fetch(
-            `*[_type == "author" && email == $email][0]`,
-            { email: user.email }
-          );
-    
-          if (!authorExists) {
-            await createAuthorInSanity({
-              name: user.name,
-              email: user.email,
-              image: user.image ?? undefined,
-            });
-          }
+    async signIn({ user }) {
+      if (user?.email) {
+        const authorExists = await client.fetch(
+          `*[_type == "author" && email == $email][0]`,
+          { email: user.email }
+        );
+  
+        if (!authorExists) {
+          await createAuthorInSanity({
+            name: user.name,
+            email: user.email,
+            image: user.image ?? undefined,
+          });
         }
       }
-    
+  
+      return true;
+    },
+  
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+      }
       return token;
-    }
-    ,  
+    },
+  
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id;

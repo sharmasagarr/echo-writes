@@ -6,7 +6,6 @@ import { AUTHOR_QUERY_BY_EMAIL } from '@/app/sanity/lib/queries'
 export async function POST(req: NextRequest) {
   try {
     const { postId, authorEmail, commentText } = await req.json();
-console.log({ postId, authorEmail, commentText }); // 👈 add this
 
     // Basic input validation
     if (!postId || !authorEmail || !commentText) {
