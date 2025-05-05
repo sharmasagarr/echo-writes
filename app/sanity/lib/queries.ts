@@ -29,3 +29,12 @@ export const COMMENT_QUERY = `*[_type == "comment" && post._ref == $id] | order(
   text,
   _createdAt
 }`;
+
+export const AUTHOR_QUERY_BY_EMAIL = `*[_type == "author" && email == $email][0]{
+_id,
+email,
+name,
+username,
+image,
+_createdAt
+}`;

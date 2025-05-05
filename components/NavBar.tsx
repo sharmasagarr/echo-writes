@@ -57,7 +57,7 @@ const NavBar = () => {
                 <div className="hidden lg:flex justify-between items-center gap-6 text-white text-lg">
                     <Link href="/">Home</Link>
                     <Link href="/">Explore</Link>
-                    <Link href="/create-post">Write</Link>
+                    <Link href="/">Write</Link>
                     <Link href="/">About</Link>
                     <UserProfile />
                     <ThemeToggle />

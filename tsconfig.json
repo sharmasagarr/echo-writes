@@ -27,5 +27,5 @@
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["dist","node_modules"],
-  "types": ["node", "next-auth"]
+  "types": ["node", "next-auth","react", "react-dom"]
 }

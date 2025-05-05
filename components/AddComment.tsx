@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react"
 export default function AddComment({postId} : {postId: string}){
     const [ commentText, setCommentText ] = useState("")
     const {data: session} = useSession()
-    const authorId = session?.user?.id
+    const authorEmail = session?.user?.email
 
     async function addNewComment(){
         try {
@@ -15,7 +15,7 @@ export default function AddComment({postId} : {postId: string}){
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ postId, authorId, commentText }),
+              body: JSON.stringify({ postId, authorEmail, commentText }),
             });
     
           } catch (error) {
@@ -24,10 +24,13 @@ export default function AddComment({postId} : {postId: string}){
     }
 
     return(
-        <form onSubmit={(e) => {
-            e.preventDefault(); // prevent reload
-            addNewComment();    // your function
-          }} className="flex gap-1">
+        <form 
+          onSubmit={(e) => {
+            e.preventDefault();
+            addNewComment();
+          }} 
+          className="flex gap-1"
+        >
         <input type="hidden" />
         <input 
           type="text" 

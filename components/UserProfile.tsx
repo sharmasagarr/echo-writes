@@ -10,13 +10,13 @@ import { cn } from "@/lib/utils";
 import SignUp from "@/components/SignUp";
 import Login from "@/components/Login";
 import { signOut, useSession } from "next-auth/react";
+import AvatarElement from "./AvatarElement";
 
 export default function PopupMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [isClickedLogin, setIsClickedLogin] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
-
   const { data: session, status } = useSession();
 
   useEffect(() => setHasMounted(true), []);
@@ -34,7 +34,7 @@ export default function PopupMenu() {
 
   if (!hasMounted || status === "loading") {
     return (
-      <Skeleton className="w-24 h-8 rounded-lg dark:text-white" />
+      <Skeleton className="w-10 h-8 rounded-lg dark:text-white" />
     );
   }
 
@@ -68,7 +68,10 @@ export default function PopupMenu() {
             {/* Mobile View*/}
             <Button className="lg:hidden bg-transparent text-white h-full !p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none flex flex-col items-start justify-center">
               <div className="flex items-center gap-0">
-                <h1 className="text-small">{session.user.name}</h1>
+                <div className="flex items-center gap-2">
+                  <AvatarElement />
+                  <h1 className="text-small">{session.user.name}</h1>
+                </div>
                 <ChevronDown className="!h-3 !w-3 text-white" />
               </div>
               <small className="text-xs opacity-80 -mt-1">{session.user.email}</small>
@@ -76,9 +79,7 @@ export default function PopupMenu() {
 
             {/* Desktop: Show user icon + dropdown */}
             <button className="hidden lg:flex items-center gap-0 bg-transparent w-fit h-10 p-0 hover:bg-transparent cursor-pointer shadow-none">
-              <div className="w-6 h-6 flex items-center justify-center bg-amber-500 text-sm rounded-xl shrink-0 border-2">
-                {session.user?.name?.charAt(0).toUpperCase()}
-              </div>
+              <AvatarElement />
               <ChevronDown className="!w-3 !h-3 text-white" />
             </button>
 

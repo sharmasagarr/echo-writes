@@ -1,13 +1,23 @@
+import { client } from '@/app/sanity/lib/client'
 import { writeClient } from "@/app/sanity/lib/write-client";
 import { NextRequest, NextResponse } from "next/server";
+import { AUTHOR_QUERY_BY_EMAIL } from '@/app/sanity/lib/queries'
 
 export async function POST(req: NextRequest) {
   try {
-    const { postId, authorId, commentText } = await req.json();
+    const { postId, authorEmail, commentText } = await req.json();
+console.log({ postId, authorEmail, commentText }); // 👈 add this
 
     // Basic input validation
-    if (!postId || !authorId || !commentText) {
+    if (!postId || !authorEmail || !commentText) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    // Fetch author ID based on email
+    const author = await client.fetch(AUTHOR_QUERY_BY_EMAIL, { email: authorEmail });
+
+    if (!author?._id) {
+      return NextResponse.json({ error: "Author not found" }, { status: 404 })
     }
 
     const result = await writeClient.create({
@@ -19,7 +29,7 @@ export async function POST(req: NextRequest) {
       },
       author: {
         _type: "reference",
-        _ref: authorId,
+        _ref: author._id,
       },
     });
 

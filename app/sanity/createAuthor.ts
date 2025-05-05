@@ -1,3 +1,4 @@
+import { client } from './lib/client'
 import { writeClient } from './lib/write-client';
 import axios from 'axios';
 import { generateUniqueUsername } from '@/lib/utils';
@@ -30,7 +31,7 @@ async function uploadImageToSanity(imageUrl: string) {
   }) {
     if (!user?.email) return;
   
-    const existing = await writeClient.fetch(
+    const existing = await client.fetch(
       `*[_type == "author" && email == $email][0]`,
       { email: user.email }
     );

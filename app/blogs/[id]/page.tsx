@@ -1,13 +1,14 @@
 import Image from 'next/image';
-import { CircleUser, ChevronDown, ThumbsUp, Eye, MessageCircleMore, Share2 } from 'lucide-react';
-import { POST_QUERY_BY_ID, COMMENT_QUERY } from "@/app/sanity/lib/queries";
+import { ChevronDown, ThumbsUp, Eye, MessageCircleMore, Share2 } from 'lucide-react';
+import { COMMENT_QUERY, POST_QUERY_BY_ID } from "@/app/sanity/lib/queries";
 import { sanityFetch, SanityLive } from "../../sanity/lib/live";
-import { type Comment } from "@/lib/definitions";
 import ReactMarkdown from 'react-markdown';
 import UpdateViews from "@/components/UpdateViews";
 import AddComment from "@/components/AddComment";
 import { urlFor } from "@/app/sanity/lib/image";
-import { formatDate, timeAgo } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
+import AvatarElement from '@/components/AvatarElement';
+import Comments from '@/components/Comments';
 
 export default async function PostPage({
   params,
@@ -21,12 +22,10 @@ export default async function PostPage({
     query: POST_QUERY_BY_ID, 
     params: {id}
   });
-  
-  // 2: Using post._id to fetch comments
-  const { data: comments }: { data: Comment[] } = await sanityFetch({
+  const {data:comments} = await sanityFetch({
     query: COMMENT_QUERY,
     params: {id}
-  });
+  })
 
   return (
     <main className="flex flex-col lg:flex-row justify-center gap-3 lg:gap-6 p-3 lg:p-15 dark:bg-gray-700">
@@ -48,14 +47,14 @@ export default async function PostPage({
           <ReactMarkdown>{post.body}</ReactMarkdown>
         </div>
       </div>
-      <div className="flex flex-col gap-3 w-80 h-fit bg-white rounded-2xl p-5 shadow-2xl">
+      <div className="flex flex-col gap-3 w-full lg:w-80 h-fit bg-white rounded-2xl p-5 shadow-2xl">
         <div className="flex justify-between items-center">
           <h1>Comments</h1>
           <div className="flex gap-1 text-sm"><Eye />{post.views}</div>
         </div>
         
         <div className="flex justify-between mt-2 p-2">
-          <div className="flex items-center"><CircleUser /><ChevronDown className="w-3 h-3"/></div>
+          <div className="flex items-center"><AvatarElement /><ChevronDown className="w-3 h-3"/></div>
           <div className="flex gap-1"><ThumbsUp />{post.likes}</div>
           <div className="flex items-center gap-1"><MessageCircleMore />{comments.length}</div>
           <div className="flex items-center gap-1"><Share2 />Share</div>
@@ -63,16 +62,9 @@ export default async function PostPage({
         <AddComment
           postId={post._id}
         />
-          {comments.map((comment) => (
-            <div key={comment._id} className="flex flex-col border-t pt-2">
-              <div className="flex items-center gap-1 text-sm font-semibold text-gray-700">
-                <CircleUser className="w-4 h-4" />
-                {comment.author?.name ?? "Anonymous"}
-              </div>
-              <div className="text-sm text-gray-600">{comment.text}</div>
-              <div className="text-[12px] text-gray-400">{timeAgo(comment._createdAt)}</div>
-            </div>
-          ))}
+        <Comments
+          postId={post._id}
+        />
       </div>
       <SanityLive />
       <UpdateViews id={id} />

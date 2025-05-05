@@ -55,3 +55,12 @@ export type Post = {
   };
   views: number;
 };
+
+export type Author = {
+_id: string;
+email: string;
+name: string;
+username: string;
+image: SanityImageSource;
+_createdAt: string;
+}

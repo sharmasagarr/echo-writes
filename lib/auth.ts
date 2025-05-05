@@ -49,18 +49,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account}) {
-      // Only on first login after sign-in
+    async jwt({ token, user, account }) {
       if (user && account) {
-        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
     
-        // Checking if user exists in DB (to avoid creating author twice)
+        // Don't overwrite token.id if it's already set from previous sessions
+        if (!token.id) {
+          token.id = user.id;
+        }
+    
         const existing = await prisma.user.findUnique({
           where: { email: user.email },
         });
     
         if (existing) {
-          // Checking if author exists in Sanity
           const authorExists = await client.fetch(
             `*[_type == "author" && email == $email][0]`,
             { email: user.email }
@@ -68,7 +71,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     
           if (!authorExists) {
             await createAuthorInSanity({
-              id: existing.id,
               name: user.name,
               email: user.email,
               image: user.image ?? undefined,
@@ -78,7 +80,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
     
       return token;
-    },  
+    }
+    ,  
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id;
