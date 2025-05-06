@@ -30,7 +30,7 @@ export default function AddComment({postId, setComments} : {postId: string, setC
     setCommentText("");
   
     try {
-      const res = await fetch("/api/comments/add", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/comments/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

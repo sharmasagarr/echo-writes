@@ -11,7 +11,7 @@ const Comments = ({ postId, comments, setComments }: { postId: string, comments:
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch("/api/comments/get", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/comments/get`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

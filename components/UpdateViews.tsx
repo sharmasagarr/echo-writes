@@ -11,7 +11,7 @@ export default function UpdateViews({ id }: { id: string }) {
 
     const updateViews = async () => {
       try {
-        await fetch("/api/views/update", {
+        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/views/update`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
