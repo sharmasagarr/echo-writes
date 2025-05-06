@@ -24,7 +24,7 @@ export default function PostPage({
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blog/get`, {
+        const res = await fetch("/api/blog/get", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
