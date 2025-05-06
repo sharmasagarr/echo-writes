@@ -3,7 +3,6 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import Image from "next/image";
 import { urlFor } from "@/app/sanity/lib/image";
-import { CircleUser } from "lucide-react";
 import { timeAgo } from "@/lib/utils";
 import { type Comment } from "@/lib/definitions";
 
