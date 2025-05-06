@@ -4,12 +4,12 @@ import { Dispatch, SetStateAction, useState } from "react"
 import { useSession } from "next-auth/react"
 import { type Comment } from "@/lib/definitions"
 
-
 export default function AddComment({postId, setComments} : {postId: string, setComments: Dispatch<SetStateAction<Comment[]>>}){
   const [ commentText, setCommentText ] = useState("")
   const [ isSubmitting, setIsSubmitting ] = useState(false)
   const {data: session} = useSession()
   const authorEmail = session?.user?.email
+  console.log(session)
 
   async function addNewComment() {
     if (!commentText.trim()) return;
@@ -21,7 +21,7 @@ export default function AddComment({postId, setComments} : {postId: string, setC
       _createdAt: new Date().toISOString(),
       author: {
         name: session?.user?.name ?? "Anonymous",
-        image: undefined,
+        image: session?.user?.image ?? undefined,
       },
     };
   
@@ -56,6 +56,7 @@ export default function AddComment({postId, setComments} : {postId: string, setC
   
       // Remove the temp comment on failure
       setComments((prev) => prev.filter((c) => c._id !== tempComment._id));
+      setIsSubmitting(false)
   
       // Optionally show an error message
       alert("Failed to save your comment. Please try again.");
