@@ -36,7 +36,7 @@ export default async function IndexPage() {
                     alt={post.author.name ?? "Author image"}
                     width={40}
                     height={40}
-                    className="rounded-full object-cover border border-black"
+                    className="w-6 h-6 lg:w-7 lg:h-7 rounded-full object-cover border border-black"
                   />
                 )}
                 </div>

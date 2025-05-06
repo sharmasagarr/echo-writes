@@ -21,6 +21,9 @@ export function timeAgo(dateString: string): string {
   const date = new Date(dateString);
   let seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
+  if (seconds < 0) seconds = 0;
+  if (seconds < 5) return "just now";
+
   const intervals: { seconds: number; label: string }[] = [
     { seconds: 60, label: 'second' },
     { seconds: 60, label: 'minute' },
@@ -38,10 +41,11 @@ export function timeAgo(dateString: string): string {
   }
 
   const count = Math.floor(seconds);
-  const interval = intervals[i] ?? { label: 'time', seconds: 1 }; // fallback to safe object
+  const interval = intervals[i];
 
-  return `${count} ${interval.label}${count !== 1 ? 's' : ''} ago`;
+  return `${count} ${interval?.label}${count !== 1 ? 's' : ''} ago`;
 }
+
 
 // function to get 17 word description from body of the blog
 export function getDescription(text: string): string {

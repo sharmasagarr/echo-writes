@@ -54,6 +54,7 @@ export type Post = {
     title?: string;
   };
   views: number;
+  likes:number;
 };
 
 export type Author = {

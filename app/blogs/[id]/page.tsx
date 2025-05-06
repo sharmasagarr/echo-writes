@@ -1,7 +1,8 @@
+'use client'
+
+import { use ,useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronDown, ThumbsUp, Eye, MessageCircleMore, Share2 } from 'lucide-react';
-import { COMMENT_QUERY, POST_QUERY_BY_ID } from "@/app/sanity/lib/queries";
-import { sanityFetch, SanityLive } from "../../sanity/lib/live";
 import ReactMarkdown from 'react-markdown';
 import UpdateViews from "@/components/UpdateViews";
 import AddComment from "@/components/AddComment";
@@ -9,23 +10,38 @@ import { urlFor } from "@/app/sanity/lib/image";
 import { formatDate } from '@/lib/utils';
 import AvatarElement from '@/components/AvatarElement';
 import Comments from '@/components/Comments';
+import { type Post, type Comment } from '@/lib/definitions';
 
-export default async function PostPage({
+export default function PostPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
+  const { id } = use(params);
+  const [post, setPost] = useState<Post>()
+  const [ comments, setComments ] = useState<Comment[]>([])
 
-  // 1: Fetching the live post using the slug
-  const { data: post } = await sanityFetch({
-    query: POST_QUERY_BY_ID, 
-    params: {id}
-  });
-  const {data:comments} = await sanityFetch({
-    query: COMMENT_QUERY,
-    params: {id}
-  })
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await fetch("/api/blog/get", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id })
+        });
+        const json = await res.json();
+        setPost(json.post);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
+    fetchPost();
+  },[])
+
+  if (!post) return <div className="p-10 text-center">Loading post...</div>;
 
   return (
     <main className="flex flex-col lg:flex-row justify-center gap-3 lg:gap-6 p-3 lg:p-15 dark:bg-gray-700">
@@ -60,13 +76,15 @@ export default async function PostPage({
           <div className="flex items-center gap-1"><Share2 />Share</div>
         </div>
         <AddComment
-          postId={post._id}
+          postId={id}
+          setComments={setComments}
         />
         <Comments
-          postId={post._id}
+          postId={id}
+          comments={comments}
+          setComments={setComments}
         />
       </div>
-      <SanityLive />
       <UpdateViews id={id} />
     </main>
   );
