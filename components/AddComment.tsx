@@ -20,7 +20,7 @@ export default function AddComment({postId, setComments} : {postId: string, setC
       _createdAt: new Date().toISOString(),
       author: {
         name: session?.user?.name ?? "Anonymous",
-        image: session?.user?.image ?? undefined,
+        image: undefined,
       },
     };
   
