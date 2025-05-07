@@ -20,7 +20,7 @@ export const POST_QUERY_BY_ID = `*[_type == "post" && _id == $id][0]{
   image,
   likes,
   views,
-  "author": author->{name, image}
+  "author": author->{name, image, username}
 }`;
 
 export const COMMENT_QUERY = `*[_type == "comment" && post._ref == $id] | order(_createdAt desc){

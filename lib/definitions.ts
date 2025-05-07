@@ -48,6 +48,7 @@ export type Post = {
   _createdAt: string;
   author?: {
     name?: string;
+    username?:string;
     image?: SanityImageSource;
   };
   category?: {
