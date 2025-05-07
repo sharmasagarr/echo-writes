@@ -67,14 +67,16 @@ export default function PopupMenu() {
           <div className="flex items-center gap-2">
             {/* Mobile View*/}
             <Button className="lg:hidden bg-transparent text-white h-full !p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none flex flex-col items-start justify-center">
-              <div className="flex items-center gap-0">
+              <div className="flex gap-0">
                 <div className="flex items-center gap-2">
                   <AvatarElement />
-                  <h1 className="text-small">{session.user.name}</h1>
+                  <div className="flex flex-col items-start">
+                    <h1 className="text-sm">{session.user.name}</h1>
+                    <small className="text-[0.6rem] opacity-80 -mt-1">{session.user.email}</small>
+                  </div>
+                  <ChevronDown className="!h-3 !w-3 text-white" />
                 </div>
-                <ChevronDown className="!h-3 !w-3 text-white" />
               </div>
-              <small className="text-xs opacity-80 -mt-1">{session.user.email}</small>
             </Button>
 
             {/* Desktop: Show user icon + dropdown */}

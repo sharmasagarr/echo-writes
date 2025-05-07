@@ -49,8 +49,8 @@ export default function PostPage({
         <div className='text-[0.5rem] text-black bg-amber-300 p-1 lg:p-2 rounded-xs border-2 font-light lg:text-[0.75rem] dark:text-black'>{formatDate(post._createdAt)}</div>
         <div className='p-3 font-semibold lg:tracking-wider lg:leading-snug lg:text-4xl text-center bg-gray-800 text-white shadow-lg border-2 border-black-400'>{post.title}</div>
       </div>
-      <div className='flex flex-col lg:flex-row justify-center gap-3 lg:gap-6 p-3 lg:p-5'>
-        <div className="flex flex-col justify-center gap-4 w-fit lg:w-130 h-auto bg-white rounded-sm p-4 lg:p-7 shadow-2xl dark:bg-gray-800">
+      <div className='flex flex-col lg:flex-row justify-center gap-3 lg:gap-6 lg:p-2'>
+        <div className="flex flex-col justify-center gap-4 w-fit lg:w-130 h-auto bg-white lg:rounded-sm p-4 lg:p-7 shadow-2xl dark:bg-gray-800">
           {post.image && (
             <Image
               src={urlFor(post.image)!.width(650).height(350).url()}
@@ -60,7 +60,7 @@ export default function PostPage({
               height="350"
             />
           )}
-          <div className='flex justify-between items-center px-7 py-2 bg-gray-100 w-[calc(100%+3.5rem)] ml-[-1.75rem] dark:bg-gray-700'>
+          <div className='flex justify-between items-center px-7 py-2 bg-gray-100 w-[calc(100%+2rem)] ml-[-1rem] lg:w-[calc(100%+3.5rem)] lg:ml-[-1.75rem] dark:bg-gray-700'>
             <div className='flex items-center gap-2'>
               <Image
                 src={post.author?.image ? urlFor(post.author.image)!.width(45).height(45).url() : ''}
@@ -76,7 +76,7 @@ export default function PostPage({
             </div>
             <button className='text-[0.7rem] w-15 h-7 rounded-full bg-gray-400 text-amber-100'>Travel</button>
           </div>
-          <div className="text-[1rem]">
+          <div className="text-[1rem] px-1 lg:px-0">
             <ReactMarkdown>{post.body}</ReactMarkdown>
           </div>
         </div>
