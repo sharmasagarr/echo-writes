@@ -47,7 +47,7 @@ const Comments = ({ postId, comments, setComments }: { postId: string, comments:
 
         return (
           <div key={comment._id} className="flex flex-col border-t pt-2">
-            <div className="flex items-center gap-1 text-sm font-semibold text-gray-700">
+            <div className="flex items-center gap-1 text-sm font-semibold text-gray-700 dark:text-gray-200">
               {authorImage}
               {comment.author?.name ?? "Anonymous"}
             </div>

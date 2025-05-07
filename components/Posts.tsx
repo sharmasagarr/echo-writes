@@ -32,11 +32,11 @@ export default async function IndexPage() {
                 <div>
                 {post.author?.image && urlFor(post.author.image) && (
                   <Image
-                    src={urlFor(post.author.image)!.width(40).height(40).url()}
+                    src={urlFor(post.author.image)!.width(45).height(45).url()}
                     alt={post.author.name ?? "Author image"}
-                    width={40}
-                    height={40}
-                    className="w-6 h-6 lg:w-7 lg:h-7 rounded-full object-cover border border-black"
+                    width={45}
+                    height={45}
+                    className="w-7 h-7 rounded-full object-cover border border-black"
                   />
                 )}
                 </div>
