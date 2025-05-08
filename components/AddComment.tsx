@@ -9,6 +9,7 @@ export default function AddComment({postId, setComments} : {postId: string, setC
   const [ isSubmitting, setIsSubmitting ] = useState(false)
   const {data: session} = useSession()
   const authorEmail = session?.user?.email
+  console.log(session)
 
   async function addNewComment() {
     if (!commentText.trim()) return;

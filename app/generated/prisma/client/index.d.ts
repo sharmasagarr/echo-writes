@@ -211,8 +211,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -884,6 +884,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     passwordHash: string | null
+    imageUrl: string | null
     createdAt: Date | null
   }
 
@@ -892,6 +893,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     passwordHash: string | null
+    imageUrl: string | null
     createdAt: Date | null
   }
 
@@ -900,6 +902,7 @@ export namespace Prisma {
     name: number
     email: number
     passwordHash: number
+    imageUrl: number
     createdAt: number
     _all: number
   }
@@ -910,6 +913,7 @@ export namespace Prisma {
     name?: true
     email?: true
     passwordHash?: true
+    imageUrl?: true
     createdAt?: true
   }
 
@@ -918,6 +922,7 @@ export namespace Prisma {
     name?: true
     email?: true
     passwordHash?: true
+    imageUrl?: true
     createdAt?: true
   }
 
@@ -926,6 +931,7 @@ export namespace Prisma {
     name?: true
     email?: true
     passwordHash?: true
+    imageUrl?: true
     createdAt?: true
     _all?: true
   }
@@ -1007,6 +1013,7 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    imageUrl: string
     createdAt: Date
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
@@ -1032,6 +1039,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     passwordHash?: boolean
+    imageUrl?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1040,6 +1048,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     passwordHash?: boolean
+    imageUrl?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1048,6 +1057,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     passwordHash?: boolean
+    imageUrl?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1056,10 +1066,11 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     passwordHash?: boolean
+    imageUrl?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "imageUrl" | "createdAt", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -1069,6 +1080,7 @@ export namespace Prisma {
       name: string
       email: string
       passwordHash: string
+      imageUrl: string
       createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -1497,6 +1509,7 @@ export namespace Prisma {
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
+    readonly imageUrl: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
@@ -1883,6 +1896,7 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     passwordHash: 'passwordHash',
+    imageUrl: 'imageUrl',
     createdAt: 'createdAt'
   };
 
@@ -1963,6 +1977,7 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
+    imageUrl?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
   }
 
@@ -1971,6 +1986,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -1982,6 +1998,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
+    imageUrl?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
   }, "id" | "email">
 
@@ -1990,6 +2007,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -2004,6 +2022,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     passwordHash?: StringWithAggregatesFilter<"User"> | string
+    imageUrl?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
@@ -2012,6 +2031,7 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    imageUrl: string
     createdAt?: Date | string
   }
 
@@ -2020,6 +2040,7 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    imageUrl: string
     createdAt?: Date | string
   }
 
@@ -2028,6 +2049,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -2036,6 +2058,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -2044,6 +2067,7 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    imageUrl: string
     createdAt?: Date | string
   }
 
@@ -2052,6 +2076,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -2060,6 +2085,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -2094,6 +2120,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -2102,6 +2129,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -2110,6 +2138,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
   }
 

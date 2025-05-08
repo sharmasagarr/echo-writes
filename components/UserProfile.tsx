@@ -69,7 +69,7 @@ export default function PopupMenu() {
             <Button className="lg:hidden bg-transparent text-white h-full !p-0 hover:bg-black/4 dark:hover:bg-gray-700 cursor-pointer shadow-none flex flex-col items-start justify-center">
               <div className="flex gap-0">
                 <div className="flex items-center gap-2">
-                  <AvatarElement />
+                  <AvatarElement width={40} height={40} />
                   <div className="flex flex-col items-start">
                     <h1 className="text-sm">{session.user.name}</h1>
                     <small className="text-[0.6rem] opacity-80 -mt-1">{session.user.email}</small>
@@ -81,7 +81,10 @@ export default function PopupMenu() {
 
             {/* Desktop: Show user icon + dropdown */}
             <button className="hidden lg:flex items-center gap-0 bg-transparent w-fit h-10 p-0 hover:bg-transparent cursor-pointer shadow-none">
-              <AvatarElement />
+              <AvatarElement
+                width={35}
+                height={35}
+              />
               <ChevronDown className="!w-3 !h-3 text-white" />
             </button>
 

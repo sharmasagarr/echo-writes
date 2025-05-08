@@ -13,5 +13,6 @@ model User {
   name         String
   email        String   @unique
   passwordHash String
+  imageUrl     String
   createdAt    DateTime @default(now())
 }

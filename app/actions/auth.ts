@@ -1,6 +1,6 @@
 "use server"
 
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@/app/generated/prisma/client'
 import { SignupFormSchema, FormState } from '@/lib/definitions'
 import bcrypt from 'bcryptjs'
 
@@ -45,6 +45,7 @@ export async function signup(_state: FormState, formData: FormData) {
                 name,
                 email,
                 passwordHash,
+                imageUrl: ""
             },
         });
 

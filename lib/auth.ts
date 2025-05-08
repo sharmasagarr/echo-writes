@@ -2,10 +2,11 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@/app/generated/prisma/client";
 import { compare } from "bcryptjs";
 import { client } from "@/app/sanity/lib/client";
 import { createAuthorInSanity } from "@/app/sanity/createAuthor";
+import { urlFor } from "@/app/sanity/lib/image";
 
 const prisma = new PrismaClient();
 
@@ -38,12 +39,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       
         if (!user || !(await compare(password, user.passwordHash))) {
           return null;
-        }
+        }        
       
         return {
           id: user.id,
           name: user.name,
           email: user.email,
+          image: user.imageUrl,
         };
       },
     }),
@@ -70,16 +72,33 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   
     async jwt({ token, user }) {
       if (user) {
+        const imageFromSanity = await client.fetch(
+            `*[_type == "author" && email == $email][0].image`,
+            { email: user.email }
+        );
+    
+        if (imageFromSanity) {
+          const imageFromSanityUrl = urlFor(imageFromSanity)!
+            .width(50)
+            .height(50)
+            .url();
+          user.image = imageFromSanityUrl;
+        } else {
+          user.image = "";
+        }   
+          
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
+        token.image = user.image;
       }
       return token;
     },
-  
+
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id;
+        session.user.image = token.image;
       }
       return session;
     },

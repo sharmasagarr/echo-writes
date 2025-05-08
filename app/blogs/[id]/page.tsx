@@ -62,13 +62,19 @@ export default function PostPage({
           )}
           <div className='flex justify-between items-center px-7 py-2 bg-gray-100 w-[calc(100%+2rem)] ml-[-1rem] lg:w-[calc(100%+3.5rem)] lg:ml-[-1.75rem] dark:bg-gray-700'>
             <div className='flex items-center gap-2'>
-              <Image
-                src={post.author?.image ? urlFor(post.author.image)!.width(45).height(45).url() : ''}
-                alt='post-author-image' 
-                width={45}
-                height={45}
-                className='w-9 h-9 rounded-full'
-              />
+              {post.author?.image ? (
+                <Image
+                  src={urlFor(post.author.image)!.width(45).height(45).url()}
+                  alt='post-author-image' 
+                  width={45}
+                  height={45}
+                  className='w-9 h-9 rounded-full'
+                />
+              ): (
+                <div className="w-[45px] h-[45px] flex items-center text-white justify-center bg-amber-500 rounded-full shrink-0 border-2">
+                  {post.author?.name?.charAt(0).toUpperCase() ?? "?"}
+                </div>
+              )}
               <div>
                 <p className="text-[0.9rem]">{post.author?.name}</p>
                 <p className='text-[0.7rem] -mt-[2px]'>@{post.author?.username}</p>
@@ -87,7 +93,7 @@ export default function PostPage({
           </div>
           
           <div className="flex justify-between mt-2 p-2">
-            <div className="flex items-center"><AvatarElement /><ChevronDown className="w-3 h-3"/></div>
+            <div className="flex items-center"><AvatarElement width={30} height={30} /><ChevronDown className="w-3 h-3"/></div>
             <div className="flex gap-1"><ThumbsUp />{post.likes}</div>
             <div className="flex items-center gap-1"><MessageCircleMore />{comments.length}</div>
             <div className="flex items-center gap-1"><Share2 />Share</div>
