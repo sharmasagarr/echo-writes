@@ -4,7 +4,7 @@ import { useState, useActionState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link'
 import { signIn } from "next-auth/react";
-import { signup } from "@/app/actions/auth";
+import { signup } from "@/app/api/actions/auth";
 
 export default function SignUp({ setIsClickedLogin }: {setIsClickedLogin: (value: boolean) => void}) {
   const [name, setName] = useState<string>('');
