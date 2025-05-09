@@ -130,7 +130,7 @@ const config = {
       "fromEnvVar": null
     },
     "config": {
-      "engineType": "binary"
+      "engineType": "client"
     },
     "binaryTargets": [
       {
@@ -139,12 +139,15 @@ const config = {
         "native": true
       }
     ],
-    "previewFeatures": [],
+    "previewFeatures": [
+      "driverAdapters",
+      "queryCompiler"
+    ],
     "sourceFilePath": "C:\\Users\\sharm\\Desktop\\echo-writes\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../../../.env",
     "schemaEnvPath": "../../../../.env"
   },
   "relativePath": "../../..",
@@ -163,8 +166,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider   = \"prisma-client-js\"\n  output     = \"./generated/prisma/client\"\n  engineType = \"binary\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id           String   @id @default(uuid())\n  name         String\n  email        String   @unique\n  passwordHash String\n  imageUrl     String\n  createdAt    DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "4d5a228d747ec60c7d6166dc7c7ed7f6c40931b4f2724e11aecaf7f863818745",
+  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  previewFeatures = [\"queryCompiler\", \"driverAdapters\"]\n  output          = \"./generated/prisma/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id           String   @id @default(uuid())\n  name         String\n  email        String   @unique\n  passwordHash String\n  imageUrl     String\n  createdAt    DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "182b0d90e9366b22489b298ed8957a827a1d69e573af3ee8d1c6910aae621ef6",
   "copyEngine": true
 }
 config.dirname = '/'
