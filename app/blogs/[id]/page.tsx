@@ -9,7 +9,7 @@ import AddComment from "@/components/AddComment";
 import { urlFor } from "@/app/sanity/lib/image";
 import { formatDate } from '@/lib/utils';
 import AvatarElement from '@/components/AvatarElement';
-import Comments from '@/components/Comments';
+import Comments from '@/components/AllComments';
 import { type Post, type Comment } from '@/lib/definitions';
 
 export default function PostPage({

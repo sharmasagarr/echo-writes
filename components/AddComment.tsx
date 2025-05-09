@@ -3,6 +3,7 @@ import { SendHorizontal } from "lucide-react"
 import { Dispatch, SetStateAction, useState } from "react"
 import { useSession } from "next-auth/react"
 import { type Comment } from "@/lib/definitions"
+import { refFor } from "@/app/sanity/lib/image"
 
 export default function AddComment({postId, setComments} : {postId: string, setComments: Dispatch<SetStateAction<Comment[]>>}){
   const [ commentText, setCommentText ] = useState("")
@@ -21,7 +22,7 @@ export default function AddComment({postId, setComments} : {postId: string, setC
       _createdAt: new Date().toISOString(),
       author: {
         name: session?.user?.name ?? "Anonymous",
-        image: session?.user?.image ?? undefined,
+        image: session?.user?.image ? refFor(session?.user?.image) : undefined,
       },
     };
   

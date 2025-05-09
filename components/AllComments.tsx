@@ -33,7 +33,7 @@ const Comments = ({ postId, comments, setComments }: { postId: string, comments:
       {comments.map((comment) => {
         const authorImage = comment.author?.image ? (
           <Image
-            src={urlFor(comment.author.image)!.width(20).height(20).url() ?? comment.author.image}
+            src={urlFor(comment.author.image)!.width(20).height(20).url()}
             alt="comment-author-image"
             width={20}
             height={20}
@@ -51,7 +51,7 @@ const Comments = ({ postId, comments, setComments }: { postId: string, comments:
               {authorImage}
               {comment.author?.name ?? "Anonymous"}
             </div>
-            <div className="text-sm text-gray-600">{comment.text}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-200">{comment.text}</div>
             <div className="text-[12px] text-gray-400">
               {timeAgo(comment._createdAt)}
             </div>
