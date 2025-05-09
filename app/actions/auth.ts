@@ -1,6 +1,6 @@
 "use server"
 
-import { PrismaClient } from '@/app/generated/prisma/client'
+import { PrismaClient } from '@/prisma/generated/prisma/client'
 import { SignupFormSchema, FormState } from '@/lib/definitions'
 import bcrypt from 'bcryptjs'
 
