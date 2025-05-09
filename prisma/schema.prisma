@@ -1,7 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["queryCompiler", "driverAdapters"]
-  output   = "./generated/prisma/client"
+  output   = "../app/generated/prisma"
 }
 
 datasource db {
@@ -14,7 +13,5 @@ model User {
   name           String
   email          String   @unique
   passwordHash   String
-  imageUrl       String
   createdAt      DateTime @default(now())
 }
-
