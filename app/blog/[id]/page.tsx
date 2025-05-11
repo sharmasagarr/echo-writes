@@ -11,6 +11,7 @@ import { formatDate } from '@/lib/utils';
 import AvatarElement from '@/components/AvatarElement';
 import Comments from '@/components/AllComments';
 import { type Post, type Comment } from '@/lib/definitions';
+import PostPageSkeleton from '@/components/PostPageSkeleton';
 
 export default function PostPage({
   params,
@@ -41,7 +42,7 @@ export default function PostPage({
     fetchPost();
   },[])
 
-  if (!post) return <div className="p-10 text-center">Loading post...</div>;
+  if (!post) return <PostPageSkeleton />;
 
   return (
     <main className="dark:bg-gray-700">
@@ -86,10 +87,10 @@ export default function PostPage({
             <ReactMarkdown>{post.body}</ReactMarkdown>
           </div>
         </div>
-        <div className="flex flex-col gap-3 w-full lg:w-80 h-fit bg-white rounded-lg p-5 shadow-2xl dark:bg-gray-800">
+        <div className="flex flex-col gap-3 w-full lg:w-80 h-fit bg-white rounded-sm p-5 shadow-2xl dark:bg-gray-800">
           <div className="flex justify-between items-center">
             <h1>Comments</h1>
-            <div className="flex gap-1 text-sm"><Eye />{post.views}</div>
+            <div className="flex items-center gap-1 text-sm"><Eye />{post.views}</div>
           </div>
           
           <div className="flex justify-between mt-2 p-2">

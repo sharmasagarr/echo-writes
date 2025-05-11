@@ -30,8 +30,8 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>
-          <NavBar />
           <Suspense fallback={null}><GlobalModalRenderer /></Suspense>
+          <NavBar />
           {children}
           <Toaster position="top-center" />
         </Providers>
