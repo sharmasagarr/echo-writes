@@ -1,36 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import { ChevronDown } from 'lucide-react';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button";
 import {Skeleton} from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
-import SignUp from "@/components/SignUp";
-import Login from "@/components/Login";
 import { signOut, useSession } from "next-auth/react";
 import AvatarElement from "./AvatarElement";
+import { useRouter, usePathname } from "next/navigation";
 
-export default function PopupMenu() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isClickedLogin, setIsClickedLogin] = useState(false);
+export default function UserProfile() {
   const [hasMounted, setHasMounted] = useState(false);
-  const popupRef = useRef<HTMLDivElement>(null);
   const { data: session, status } = useSession();
+  const router = useRouter();
+  const currentUrl = usePathname();
 
   useEffect(() => setHasMounted(true), []);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   if (!hasMounted || status === "loading") {
     return (
@@ -44,8 +29,7 @@ export default function PopupMenu() {
         <div className="flex flex-col lg:flex-row gap-2">
           <Button
             onClick={() => {
-              setIsOpen(true);
-              setIsClickedLogin(true);
+              router.push(`${currentUrl}/?modal=login`);
             }}
             className="flex items-center bg-transparent border shadow-none rounded-3xl cursor-pointer hover:bg-white hover:text-black dark:border-white dark:text-white"
           >
@@ -53,8 +37,7 @@ export default function PopupMenu() {
           </Button>
           <Button
             onClick={() => {
-              setIsOpen(true);
-              setIsClickedLogin(false);
+              router.push(`${currentUrl}/?modal=signup`);
             }}
             className="flex items-center bg-white text-black shadow-none rounded-3xl cursor-pointer hover:bg-white"
           >
@@ -87,8 +70,6 @@ export default function PopupMenu() {
               />
               <ChevronDown className="!w-3 !h-3 text-white" />
             </button>
-
-
           </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -102,45 +83,12 @@ export default function PopupMenu() {
                 <small>{session.user.email}</small>
               </div>
               </DropdownMenuItem><hr />
-            <DropdownMenuItem onClick={() => signOut({redirectTo: "/"})}>
+            <DropdownMenuItem onClick={() => signOut({redirectTo: `${currentUrl}`})}>
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu> 
       )}
-
-      {!session &&  <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div
-              className="fixed inset-0 bg-black/40 backdrop-blur-2xs z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            />
-
-            <motion.div
-              ref={popupRef}
-              className={cn(
-                "w-[450px] max-w-full fixed top-1/2 left-1/2 bg-white border shadow-4xl rounded-xl p-6 z-50",
-                "transform -translate-x-1/2 -translate-y-1/2 will-change-transform dark:bg-gray-900"
-              )}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-            >
-              {isClickedLogin ? (
-                <Login setIsClickedLogin={setIsClickedLogin} />
-              ) : (
-                <SignUp setIsClickedLogin={setIsClickedLogin} />
-              )}
-            </motion.div>
-          </>
-        )}
-        </AnimatePresence>
-      }
     </>
   );
 }

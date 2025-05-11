@@ -4,12 +4,16 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link'
 import { signIn } from "next-auth/react";
+import { useRouter, usePathname } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
-export default function Login({ setIsClickedLogin }: { setIsClickedLogin: (value: boolean) => void }) {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const currerntUrl = usePathname();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +32,8 @@ export default function Login({ setIsClickedLogin }: { setIsClickedLogin: (value
       } else if (res?.ok) {
         setEmail("");
         setPassword("");
-        console.log("Login successful");
+        router.push(currerntUrl);
+        toast.success("Login successful");
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -119,7 +124,7 @@ export default function Login({ setIsClickedLogin }: { setIsClickedLogin: (value
         Don&apos;t have an account?{" "}
         <button
           className="text-[#0066ff] dark:text-blue-400 cursor-pointer"
-          onClick={() => setIsClickedLogin(false)}
+          onClick={() => router.push(`${currerntUrl}/?modal=signup`)}
         >
           Sign Up
         </button>

@@ -5,26 +5,29 @@ import Image from 'next/image';
 import Link from 'next/link'
 import { signIn } from "next-auth/react";
 import { signup } from "@/app/api/actions/auth";
+import { useRouter, usePathname } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
-export default function SignUp({ setIsClickedLogin }: {setIsClickedLogin: (value: boolean) => void}) {
+export default function SignUp() {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [state, action, pending] = useActionState(signup, undefined);
+  const router = useRouter();
+  const currerntUrl = usePathname();
 
   async function handleLogin(email:string, password:string) {
     try {
-      // Attempt to log the user in immediately after signup success
+      // Attempt to log in the user in immediately after signup success
       const login = await signIn("credentials", {
         redirect: false,
         email,
         password,
       });
   
-      if (login?.error) {
-          alert("User created succesfully.");
-      } else {
-        alert("User signed up and logged in successfully.");
+      if (!login?.error) {
+        router.push(`${currerntUrl}`)
+        toast.success("Sign up succesful.");
       }
     } catch (error) {
       console.error("Login failed:", error);
@@ -110,7 +113,7 @@ export default function SignUp({ setIsClickedLogin }: {setIsClickedLogin: (value
           className="border border-gray-400 dark:border-gray-400 dark:bg-gray-850 dark:text-white rounded-md w-full pl-2 text-[0.8rem] h-8"
         />
         {state?.errors?.password && (<div className="text-red-500 mt-1 text-[12px]">Password must {state.errors.password[0]}</div>)}
-        {state?.message && <div className="text-red-500 mt-1 text-[12px] text-center">{state.message}</div>}
+        {state?.message && <div className="text-green-500 mt-1 text-[12px] text-center">{state.message}</div>}
         <button
           type="submit"
           className={`cursor-pointer w-full mt-2 p-1 text-white text-[0.9rem] bg-[#0066ff] hover:bg-[#0053cc] dark:bg-blue-600 dark:hover:bg-blue-500 rounded-md ${
@@ -123,7 +126,10 @@ export default function SignUp({ setIsClickedLogin }: {setIsClickedLogin: (value
       </form>
       <div className="text-black dark:text-white text-[16px] mt-2">
         Already have an account?{" "}
-        <button className="text-[#0066ff] dark:text-blue-400 cursor-pointer" onClick={() => setIsClickedLogin(true)}>
+        <button 
+          className="text-[#0066ff] dark:text-blue-400 cursor-pointer"
+          onClick={() => router.push(`${currerntUrl}/?modal=login`)}
+        >
           Log in
         </button>
       </div>

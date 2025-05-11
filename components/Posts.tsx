@@ -1,14 +1,31 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { type Post } from "@/lib/definitions";
-import { sanityFetch, SanityLive } from "@/app/sanity/lib/live";
-import {POSTS_QUERY} from "@/app/sanity/lib/queries";
 import { Eye } from "lucide-react";
 import { urlFor } from "@/app/sanity/lib/image";
 import { formatDate, getDescription } from "@/lib/utils";
 
-export default async function IndexPage() {
-  const {data: posts} = await sanityFetch({query: POSTS_QUERY});
+export default function Posts() {
+  const [ posts, setPosts ] = useState<Post[]>([]);
+
+  useEffect(() => {
+    const fetchAllPosts = async () => {
+      try {
+        const res = await fetch("/api/post/get-all");
+        const json = await res.json();
+        setPosts(json.post);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchAllPosts();
+  }, []);
+
+    if (!posts) return <div className="p-10 text-center">Loading...</div>;
   
   return (
     <main className="mx-[1.5rem] lg:mx-[5rem] mt-[1rem] lg:mt-[2rem]">
@@ -58,7 +75,7 @@ export default async function IndexPage() {
                   {post.category?.title}
                 </div>
                 <Link
-                  href={`/blogs/${post._id}`}
+                  href={`/blog/${post._id}`}
                   className="bg-black text-white rounded-lg px-3 py-1 dark:bg-white dark:text-black">
                   Read
                 </Link>
@@ -67,7 +84,6 @@ export default async function IndexPage() {
           </div>
         ))}
       </div>
-      <SanityLive />
     </main>
   );
 }

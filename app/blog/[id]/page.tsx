@@ -24,7 +24,7 @@ export default function PostPage({
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch("/api/blog/get", {
+        const res = await fetch("/api/post/get", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default function PostPage({
   return (
     <main className="dark:bg-gray-700">
       <div className="flex flex-col justify-center gap-2 lg:gap-3 items-center pattern dark:pattern h-30 lg:h-50">
-        <div className='text-[0.5rem] text-black bg-amber-300 p-1 lg:p-2 rounded-xs border-2 font-light lg:text-[0.75rem] dark:text-black'>{formatDate(post._createdAt)}</div>
+        <div className='text-[0.5rem] text-black bg-amber-300 p-1 lg:p-2 rounded-br-lg rounded-tl-lg border-2 font-light lg:text-[0.75rem] dark:text-black'>{formatDate(post._createdAt)}</div>
         <div className='p-3 font-semibold lg:tracking-wider lg:leading-snug lg:text-4xl text-center bg-gray-800 text-white shadow-lg border-2 border-black-400'>{post.title}</div>
       </div>
       <div className='flex flex-col lg:flex-row justify-center gap-3 lg:gap-6 lg:p-2'>

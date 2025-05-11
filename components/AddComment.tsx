@@ -4,15 +4,20 @@ import { Dispatch, SetStateAction, useState } from "react"
 import { useSession } from "next-auth/react"
 import { type Comment } from "@/lib/definitions"
 import { refFor } from "@/app/sanity/lib/image"
+import { useRouter } from "next/navigation"
 
 export default function AddComment({postId, setComments} : {postId: string, setComments: Dispatch<SetStateAction<Comment[]>>}){
   const [ commentText, setCommentText ] = useState("")
   const [ isSubmitting, setIsSubmitting ] = useState(false)
   const {data: session} = useSession()
   const authorEmail = session?.user?.email
-  console.log(session)
+  const router = useRouter()
 
   async function addNewComment() {
+    if (!session) {
+      router.push("?modal=login");
+      return;
+    }
     if (!commentText.trim()) return;
     setIsSubmitting(true)
   
@@ -84,8 +89,8 @@ export default function AddComment({postId, setComments} : {postId: string, setC
       />
       <button 
         type="submit" 
-        className="rounded-2xl p-2 text-xs bg-[#0066ff] text-white cursor-pointer disabled:cursor-not-allowed"
-        disabled={isSubmitting}
+        className="rounded-2xl p-2 text-xs bg-[#0066ff] text-white cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400"
+        disabled={isSubmitting || commentText.trim().length === 0}
         >
         {isSubmitting ? (
           <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

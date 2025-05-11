@@ -110,7 +110,6 @@ const NavBar = () => {
                         </div>
                         <div className="flex flex-col gap-3 mb-3"><hr /><UserProfile /></div>
                     </div>
-
                 </div>
             </nav>
         </header>
