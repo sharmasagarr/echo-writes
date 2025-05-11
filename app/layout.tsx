@@ -5,6 +5,7 @@ import { Mynerve, Outfit } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 import NavBar from "@/components/NavBar";
 import GlobalModalRenderer from "@/components/GlobalModalRenderer";
+import { Suspense } from "react";
 
 const mynerve = Mynerve({ weight: '400', subsets: ['latin'] })
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })
@@ -30,7 +31,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <NavBar />
-          <GlobalModalRenderer />
+          <Suspense fallback={null}><GlobalModalRenderer /></Suspense>
           {children}
           <Toaster position="top-center" />
         </Providers>
