@@ -1,16 +1,17 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/app/sanity/lib/image";
 import { timeAgo } from "@/lib/utils";
 import { type Comment } from "@/lib/definitions";
 
 const Comments = ({ postId, comments, setComments }: { postId: string, comments: Comment[], setComments: Dispatch<SetStateAction<Comment[]>> }) => {
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchComments = async () => {
       try {
+        setIsLoading(true);
         const res = await fetch("/api/comments/get", {
           method: "POST",
           headers: {
@@ -22,11 +23,34 @@ const Comments = ({ postId, comments, setComments }: { postId: string, comments:
         setComments(json.comments);
       } catch (error) {
         console.error("Error fetching comments:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchComments();
-  },[])
+  },[postId])
+
+  if (isLoading) return (
+    <div className="w-full h-40 flex items-center justify-center">
+      <div className="w-7 h-7 border-2 border-gray-600 dark:border-gray-300 dark:border-t-transparent border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+
+  if (comments.length === 0) return (
+    
+    <div className="flex flex-col items-center justify-center">
+      <div className="relative w-full h-40">
+        <Image
+          src="/no-comments.svg"
+          alt="No comments"
+          fill
+          className="object-contain"
+        />
+      </div>
+      <p className="text-center text-gray-500 dark:text-gray-300 text-sm px-2 -mt-2">No comments yet. <br /> Be the first to start a conversation!</p>
+    </div>
+  );
 
   return (
     <>

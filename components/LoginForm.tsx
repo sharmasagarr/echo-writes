@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link'
 import { signIn } from "next-auth/react";
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 
 export default function Login() {
@@ -13,7 +13,9 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const currerntUrl = usePathname();
+  const url = new URL(window.location.href);
+  url.searchParams.delete('modal');
+  const cleanUrl = url.toString();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +34,7 @@ export default function Login() {
       } else if (res?.ok) {
         setEmail("");
         setPassword("");
-        router.push(currerntUrl);
+        router.push(cleanUrl);
         toast.success("Login successful");
       }
     } catch (error: unknown) {
@@ -65,7 +67,7 @@ export default function Login() {
       </div>
       <div className="flex flex-col gap-2 mt-3 items-center justify-center">
         <button 
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", {callbackUrl: cleanUrl})}
           className="w-full flex justify-center  cursor-pointer border border-gray-400 dark:border-white rounded-md"
         >
           <div className="h-10 pl-2 rounded-lg flex items-center gap-3">
@@ -74,7 +76,7 @@ export default function Login() {
           </div>
         </button>
         <button 
-          onClick={() => signIn("github")}
+          onClick={() => signIn("github", {callbackUrl: cleanUrl})}
           className="w-full flex justify-center cursor-pointer border border-gray-400 dark:border-white rounded-md"
         >
           <div className="h-10 pl-2 rounded-lg flex items-center gap-3">
@@ -124,7 +126,7 @@ export default function Login() {
         Don&apos;t have an account?{" "}
         <button
           className="text-[#0066ff] dark:text-blue-400 cursor-pointer"
-          onClick={() => router.push(`${currerntUrl}/?modal=signup`)}
+          onClick={() => router.push(`${cleanUrl}/?modal=signup`)}
         >
           Sign Up
         </button>
