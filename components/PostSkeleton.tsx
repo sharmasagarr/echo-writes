@@ -31,7 +31,7 @@ export default function PostSkeleton() {
       </div>
 
       {/* Post Image Placeholder */}
-      <div className="w-full h-[150px] bg-gray-300 rounded-lg mt-3 dark:bg-gray-600"></div>
+      <div className="w-full aspect-[8/3] border-2 bg-gray-300 rounded-lg mt-3 dark:bg-gray-600"></div>
 
       {/* Category and Read Button Placeholder */}
       <div className="flex justify-between items-center mt-3">

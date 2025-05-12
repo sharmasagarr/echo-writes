@@ -12,7 +12,7 @@ export default function PostPageSkeleton() {
         
         {/* Left: Post Content */}
         <div className="flex flex-col justify-center gap-4 w-full lg:w-130 bg-white dark:bg-gray-800 p-4 lg:p-7 rounded shadow-2xl">
-          <div className="w-full h-[250px] lg:h-[330px] bg-gray-300 rounded" />
+          <div className="w-full aspect-video bg-gray-300 rounded" />
           
           <div className="flex justify-between items-center px-7 py-2 bg-gray-100 w-[calc(100%+2rem)] ml-[-1rem] lg:w-[calc(100%+3.5rem)] lg:ml-[-1.75rem] dark:bg-gray-700">
             <div className="flex items-center gap-3">

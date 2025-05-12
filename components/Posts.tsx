@@ -69,7 +69,7 @@ export default function Posts() {
                     alt="post-image"
                     width={400}
                     height={150}
-                    className="w-full rounded-lg border-2 dark:border-gray-200"
+                    className="w-full aspect-[8/3] rounded-lg border-2 dark:border-gray-200"
                   />
                 )}
                 <div className="flex justify-between items-center mt-2 text-xs">

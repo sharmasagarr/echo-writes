@@ -39,7 +39,7 @@ const Comments = ({ postId, comments, setComments }: { postId: string, comments:
 
   if (comments.length === 0) return (
     
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center mb-2">
       <div className="relative w-full h-40">
         <Image
           src="/no-comments.svg"
