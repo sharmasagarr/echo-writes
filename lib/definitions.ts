@@ -50,6 +50,7 @@ export type Post = {
     name?: string;
     username?:string;
     image?: SanityImageSource;
+    bio?: string;
   };
   category?: {
     title?: string;
@@ -59,10 +60,11 @@ export type Post = {
 };
 
 export type Author = {
-_id: string;
-email: string;
-name: string;
-username: string;
-image: SanityImageSource;
-_createdAt: string;
+  _id: string;
+  email: string;
+  name: string;
+  username: string;
+  image: SanityImageSource;
+  _createdAt: string;
+  bio?: string;
 }

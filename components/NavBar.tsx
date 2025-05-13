@@ -27,11 +27,20 @@ const NavBar = () => {
         };
 
         if (isOpen) {
+            // Disable scrolling on both body and html
+            document.body.style.overflow = "hidden";
+            document.documentElement.style.overflow = "hidden";
             document.addEventListener('mousedown', handler);
+        } else {
+            // Re-enable scrolling on both body and html
+            document.body.style.overflow = "auto";
+            document.documentElement.style.overflow = "auto";
         }
 
         return () => {
             document.removeEventListener('mousedown', handler);
+            document.body.style.overflow = "auto"; // Ensure scroll is re-enabled
+            document.documentElement.style.overflow = "auto"; // Ensure scroll is re-enabled
         };
     }, [isOpen]);
 
@@ -66,7 +75,7 @@ const NavBar = () => {
 
                 {/* Mobile Nav Area */}
                 <div className={clsx(
-                    "lg:hidden flex items-center gap-2 h-full",
+                    "lg:hidden flex items-center gap-2 h-full overflow:hidden",
                     { "w-full": showSearch }
                 )}>
                     {/* Mobile Search Bar */}
