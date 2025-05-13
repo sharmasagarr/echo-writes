@@ -109,7 +109,7 @@ export default function UserPortfolio({ username }: { username: string }) {
                 {/* Profile Header */}
                 <div className="relative flex flex-col md:flex-row items-center md:items-start gap-5 lg:gap-12 mb-16 pt-12">
                 {/* Avatar */}
-                <div className="relative z-10 shrink-0 group">
+                <div className="relative shrink-0 group">
                     <div className="w-40 h-40 md:w-50 md:h-50 relative rounded-full overflow-hidden ring-8 ring-white dark:ring-gray-800 shadow-xl transition-all duration-500 group-hover:scale-105">
                     {user?.image ? (
                         <Image
@@ -127,7 +127,7 @@ export default function UserPortfolio({ username }: { username: string }) {
                 </div>
 
                 {/* User Info */}
-                <div className="relative z-10 flex-grow text-center md:text-left">
+                <div className="relative flex-grow text-center md:text-left">
                     <h1 className="text-3xl md:text-5xl font-semibold text-gray-900 dark:text-white leading-tight mb-2 transition-colors duration-300 group-hover:text-primary">
                     {user.name}
                     </h1>
