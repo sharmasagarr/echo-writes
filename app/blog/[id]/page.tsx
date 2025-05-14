@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link';
 import { use ,useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronDown, ThumbsUp, Eye, MessageCircleMore, Share2 } from 'lucide-react';
@@ -61,7 +62,10 @@ export default function PostPage({
               height="350"
             />
           )}
-          <div className='flex justify-between items-center px-7 py-2 bg-gray-100 w-[calc(100%+2rem)] ml-[-1rem] lg:w-[calc(100%+3.5rem)] lg:ml-[-1.75rem] dark:bg-gray-700'>
+          <Link
+            href={`/user/${post.author?.username}`} 
+            className='flex justify-between items-center px-7 py-2 bg-gray-100 w-[calc(100%+2rem)] ml-[-1rem] lg:w-[calc(100%+3.5rem)] lg:ml-[-1.75rem] dark:bg-gray-700'
+          >
             <div className='flex items-center gap-2'>
               {post.author?.image ? (
                 <Image
@@ -81,8 +85,8 @@ export default function PostPage({
                 <p className='text-[0.7rem] -mt-[2px]'>@{post.author?.username}</p>
               </div>
             </div>
-            <button className='text-[0.7rem] w-15 h-7 rounded-full bg-gray-400 text-amber-100'>Travel</button>
-          </div>
+            <button className='text-[0.7rem] w-15 h-7 rounded-full bg-gray-400 text-amber-100 cursor-pointer'>Travel</button>
+          </Link>
           <div className="text-[1rem] px-1 lg:px-0">
             <ReactMarkdown>{post.body}</ReactMarkdown>
           </div>

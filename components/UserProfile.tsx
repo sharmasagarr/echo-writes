@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { ChevronDown } from 'lucide-react';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button";
-import {Skeleton} from "@/components/ui/skeleton";
 import { signOut, useSession } from "next-auth/react";
 import AvatarElement from "./AvatarElement";
 import { useRouter, usePathname } from "next/navigation";
@@ -19,7 +18,7 @@ export default function UserProfile() {
 
   if (!hasMounted || status === "loading") {
     return (
-      <Skeleton className="w-10 h-8 rounded-lg dark:text-white" />
+      <div className="w-10 h-8 rounded-lg bg-gray-100 dark:bg-gray-400 animate-pulse" />
     );
   }
 

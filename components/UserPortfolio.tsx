@@ -174,7 +174,7 @@ export default function UserPortfolio({ username }: { username: string }) {
                 <div className="flex items-center gap-4 mb-12">
                     <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
                     <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white tracking-tight">
-                    Latest Posts
+                    Showcase
                     </h2>
                     <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
                 </div>
@@ -225,6 +225,6 @@ export default function UserPortfolio({ username }: { username: string }) {
 
             <div className="mt-24"></div>
         </section>
-
     );
 }
+// This component fetches and displays a user's portfolio, including their profile information and posts.
