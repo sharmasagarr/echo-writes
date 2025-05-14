@@ -124,7 +124,6 @@ export default function SignUp() {
           className="border border-gray-400 dark:border-gray-400 dark:bg-gray-850 dark:text-white rounded-md w-full pl-2 text-[0.8rem] h-8"
         />
         {state?.errors?.password && (<div className="text-red-500 mt-1 text-[12px]">Password must {state.errors.password[0]}</div>)}
-        {state?.message && <div className="text-green-500 mt-1 text-[12px] text-center">{state.message}</div>}
         <button
           type="submit"
           className={cn("cursor-pointer w-full mt-2 p-1 text-white text-[0.9rem] bg-[#0066ff] hover:bg-[#0053cc] dark:bg-blue-600 dark:hover:bg-blue-500 rounded-md",
