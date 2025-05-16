@@ -36,7 +36,7 @@ export default function Login() {
       } else if (res?.ok) {
         setEmail("");
         setPassword("");
-        router.push(cleanUrl);
+        router.push(cleanUrl, { scroll: false });
         toast.success("Login successful");
       }
     } catch (error: unknown) {
@@ -58,10 +58,13 @@ export default function Login() {
           <Image src="/logo-blue.svg" alt="logo-blue" width={50} height={50} />
           <span className="text-[#000000] dark:text-white text-lg">Welcome Back 😊</span>
         </div>
-        <X
-          onClick={() => router.push(cleanUrl)}
-          className='w-5 h-5 cursor-pointer'
-        />
+        <button
+          type="button"
+          onClick={() => router.push(cleanUrl, { scroll: false })}
+          className="text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full p-2 transition duration-200 ease-in-out cursor-pointer"
+        >
+          <X size={23} />
+        </button>
       </div>
       <div className="text-[#000000] dark:text-gray-300 text-[12px] mt-2 ml-2">
         By continuing, you agree to our{" "}
@@ -135,7 +138,7 @@ export default function Login() {
         Don&apos;t have an account?{" "}
         <button
           className="text-[#0066ff] dark:text-blue-400 cursor-pointer"
-          onClick={() => router.push(`${cleanUrl}/?modal=signup`)}
+          onClick={() => router.push(`?modal=signup`, { scroll: false })}
         >
           Sign Up
         </button>

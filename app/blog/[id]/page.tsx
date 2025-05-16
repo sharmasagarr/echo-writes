@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { use ,useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronDown, ThumbsUp, Eye, MessageCircleMore, Share2 } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
 import UpdateViews from "@/components/UpdateViews";
 import AddComment from "@/components/AddComment";
 import { urlFor } from "@/app/sanity/lib/image";
@@ -13,6 +12,9 @@ import AvatarElement from '@/components/AvatarElement';
 import Comments from '@/components/AllComments';
 import { type Post, type Comment } from '@/lib/definitions';
 import PostPageSkeleton from '@/components/PostPageSkeleton';
+import MarkdownPreview from '@uiw/react-markdown-preview';
+import '@/components/styles/custom-md-preview.css';
+import { useTheme } from 'next-themes';
 
 export default function PostPage({
   params,
@@ -22,6 +24,7 @@ export default function PostPage({
   const { id } = use(params);
   const [post, setPost] = useState<Post>()
   const [ comments, setComments ] = useState<Comment[]>([])
+  const { theme } = useTheme();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -87,8 +90,10 @@ export default function PostPage({
             </div>
             <button className='text-[0.7rem] w-15 h-7 rounded-full bg-gray-400 text-amber-100 cursor-pointer'>Travel</button>
           </Link>
-          <div className="text-[1rem] px-1 lg:px-0">
-            <ReactMarkdown>{post.body}</ReactMarkdown>
+          <div className="text-[1rem] px-1 lg:px-0" data-color-mode={theme === 'dark' ? 'dark' : 'light'}>
+            <MarkdownPreview
+              source={post.body}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-3 w-full lg:w-80 h-fit bg-white rounded-sm p-5 shadow-2xl dark:bg-gray-800">

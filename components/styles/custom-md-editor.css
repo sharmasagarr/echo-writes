@@ -1,0 +1,38 @@
+[data-color-mode="dark"] .w-md-editor,[data-color-mode="dark"] .w-md-editor-preview,[data-color-mode="dark"] .w-md-editor-content,[data-color-mode="dark"] .wmde-markdown  {
+  background-color: #374151 !important;
+  color: #d1d5db !important;
+}
+[data-color-mode="dark"] .w-md-editor-toolbar{
+  background-color: #29313f !important;
+}
+
+.w-md-editor-toolbar {
+  border-bottom: 3px solid #535d6a !important;
+  height: fit-content !important;
+  padding: 0.5rem !important;
+}
+.w-md-editor-toolbar ul {
+  color: #ffffff !important;
+  height: fit-content !important;
+}
+.w-md-editor-toolbar ul button{
+  height: fit-content !important;
+  padding-left: 0.3rem !important;
+  padding-right: 0.3rem !important;
+}
+.w-md-editor-toolbar svg{
+  height: 1rem !important;
+  width: 1rem !important;
+}
+.w-md-editor-text-input,.w-md-editor-preview,
+.w-md-editor-text-pre > code,
+.w-md-editor-text-pre {
+  font-size: 0.9rem !important;
+  line-height: 1.2rem !important;
+  font-family: 'Outfit', sans-serif !important;
+}
+.wmde-markdown {
+  font-size: 0.9rem !important;
+  line-height: 1.2rem !important;
+  font-family: 'Outfit', sans-serif !important;
+}

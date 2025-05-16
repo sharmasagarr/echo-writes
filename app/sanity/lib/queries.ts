@@ -1,4 +1,4 @@
-export const POSTS_QUERY = `*[_type == "post" && defined(slug.current)]|order(_createdAt desc)[0...12]{
+export const POSTS_QUERY = `*[_type == "post"]|order(_createdAt desc)[0...12]{
   _id, 
   title, 
   slug, 

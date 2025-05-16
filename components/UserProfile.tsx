@@ -28,7 +28,7 @@ export default function UserProfile() {
         <div className="flex flex-col lg:flex-row gap-2">
           <Button
             onClick={() => {
-              router.push(`${currentUrl}/?modal=login`);
+              router.push(`?modal=login`, { scroll: false });
             }}
             className="flex items-center bg-transparent border shadow-none rounded-3xl cursor-pointer hover:bg-white hover:text-black dark:border-white dark:text-white"
           >
@@ -36,7 +36,7 @@ export default function UserProfile() {
           </Button>
           <Button
             onClick={() => {
-              router.push(`${currentUrl}/?modal=signup`);
+              router.push(`?modal=signup`, { scroll: false });
             }}
             className="flex items-center bg-white text-black shadow-none rounded-3xl cursor-pointer hover:bg-white"
           >

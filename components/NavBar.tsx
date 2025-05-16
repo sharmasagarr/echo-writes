@@ -66,7 +66,7 @@ const NavBar = () => {
                 <div className="hidden lg:flex justify-between items-center gap-6 text-white text-lg">
                     <Link href="/">Home</Link>
                     <Link href="/">Explore</Link>
-                    <Link href="/">Write</Link>
+                    <Link href="/write">Write</Link>
                     <Link href="/">About</Link>
                     <UserProfile />
                     <ThemeToggle />
@@ -113,7 +113,7 @@ const NavBar = () => {
                         <div className="flex flex-col justify-start gap-3">
                             <Link href="/" onClick={() => setIsOpen(false)}>Home</Link><hr /> {/* Optional: Close menu on link click */}
                             <Link href="/" onClick={() => setIsOpen(false)}>Explore</Link><hr />
-                            <Link href="/" onClick={() => setIsOpen(false)}>Write</Link><hr />
+                            <Link href="/write" onClick={() => setIsOpen(false)}>Write</Link><hr />
                             <Link href="/" onClick={() => setIsOpen(false)}>About</Link><hr />
                             <ThemeToggle /><hr />
                         </div>
