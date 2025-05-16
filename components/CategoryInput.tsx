@@ -35,7 +35,7 @@ const CategoryInput: React.FC<CategoryInputProps> = ({ category, setCategory }) 
       borderColor: state.isFocused ? '#3b82f6' : isDark ? '#374151' : '#d1d5db',
       boxShadow: state.isFocused ? '0 0 0 1.5px rgba(59, 130, 246)' : 'none',
       borderRadius: '0.5rem',
-      padding: '9px 13px',
+      padding: '10px 8px',
       fontSize: '1rem',
       color: isDark ? '#f9fafb' : '#111827',
       ':hover': {
