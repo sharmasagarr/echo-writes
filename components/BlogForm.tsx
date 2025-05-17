@@ -49,7 +49,7 @@ const BlogForm = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if(!session) {
-            toast.error("Please login to create a post.");
+            toast.error("Please login to create a post.", { id: 'login-error' });
             Router.push(`?modal=login`, { scroll: false });
             return;
         }
