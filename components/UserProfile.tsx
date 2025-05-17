@@ -81,8 +81,11 @@ export default function UserProfile() {
                 <p className="font-medium">{session.user.name}</p>
                 <small>{session.user.email}</small>
               </div>
-              </DropdownMenuItem><hr />
-            <DropdownMenuItem onClick={() => signOut({redirectTo: `${currentUrl}`})}>
+            </DropdownMenuItem><hr className="mb-1"/>
+            <DropdownMenuItem onClick={() => router.push(`/profile`)} className="cursor-pointer hover:!text-blue-500">
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => signOut({redirectTo: `${currentUrl}`})} className="cursor-pointer hover:!text-red-500">
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>

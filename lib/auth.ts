@@ -70,12 +70,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   
     async jwt({ token, user }) {
       if (user) {
-        const { image: imageFromSanity, _id: sanityUserId } = await client.fetch(
-          `*[_type == "author" && email == $email][0]{_id, image}`,
+        const { image: imageFromSanity, _id: sanityUserId, username: sanityUsername } = await client.fetch(
+          `*[_type == "author" && email == $email][0]{_id, username, image}`,
           { email: user.email }
         );
 
-    
         if (imageFromSanity) {
           const imageFromSanityUrl = urlFor(imageFromSanity)!
             .width(50)
@@ -88,6 +87,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           
         token.id = sanityUserId;
         token.email = user.email;
+        token.username = sanityUsername;
         token.name = user.name;
         token.image = user.image;
       }
@@ -98,6 +98,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (token) {
         session.user.id = token.id;
         session.user.image = token.image;
+        session.user.username = token.username as string | undefined;
       }
       return session;
     },

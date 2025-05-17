@@ -5,6 +5,7 @@ declare module "next-auth" {
     user: {
       id: string;
       email: string;
+      username?: string;
       name?: string | null;
       image?: string | null;
     };
@@ -13,6 +14,7 @@ declare module "next-auth" {
   interface User {
     id: string;
     email: string;
+    username?: string;
     name: string;
     image: string;
   }

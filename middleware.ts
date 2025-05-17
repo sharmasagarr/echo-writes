@@ -7,18 +7,18 @@ export async function middleware(request: NextRequest) {
 
   const isAuth = !!token;
 
-  const protectedPaths = ["/dashboard", "/profile", "/settings"];
+  const protectedPaths = ["/profile"];
   const pathIsProtected = protectedPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   );
 
   if (!isAuth && pathIsProtected) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/?modal=login", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*", "/settings/:path*"],
+  matcher: ["/profile/:path*"],
 };
