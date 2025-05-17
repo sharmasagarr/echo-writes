@@ -1,16 +1,18 @@
 "use client";
 
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import SignUpForm from "@/components/SignUpForm";
 import { cn } from "@/lib/utils";
 
 export default function SignUpModal() {
   const router = useRouter();
-  const currentUrl = usePathname();
+  const url = new URL(window.location.href);
+  url.searchParams.delete('modal');
+  const cleanUrl = url.toString();
 
   const closeModal = () => {
-    router.push(currentUrl);
+    router.push(cleanUrl, { scroll: false });
   };
 
   return (
