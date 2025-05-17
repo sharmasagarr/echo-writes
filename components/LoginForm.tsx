@@ -127,7 +127,7 @@ export default function Login() {
         <button
           type="submit"
           className={cn("cursor-pointer w-full mt-2 p-1 text-white text-[0.9rem] bg-[#0066ff] hover:bg-[#0053cc] dark:bg-blue-600 dark:hover:bg-blue-500 rounded-md",
-            loading && 'bg-gray-400 hover:cursor-not-allowed hover:bg-gray-400'
+            loading && 'bg-gray-400 dark:bg-gray-400 hover:cursor-not-allowed hover:bg-gray-400'
           )}
           disabled={loading}
         >
