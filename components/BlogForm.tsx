@@ -161,7 +161,7 @@ const BlogForm = () => {
                     key={theme}
                     value={body}
                     onChange={setBody}
-                    height={400}
+                    height={500}
                     className="shadow-lg border rounded-lg overflow-hidden"
                 />
             </div>

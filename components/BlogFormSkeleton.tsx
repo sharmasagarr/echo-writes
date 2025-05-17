@@ -34,14 +34,12 @@ const BlogFormSkeleton = () => {
       <div className="mb-5"> 
          <div className="block h-4 bg-gray-300 dark:bg-gray-700 rounded w-28 mb-2"></div> {/* Label placeholder */}
          {/* MDEditor area placeholder with fixed height */}
-         <div className="shadow-lg border rounded-lg overflow-hidden w-full h-[400px] bg-gray-300 dark:bg-gray-700"></div>
+         <div className="shadow-lg border rounded-lg overflow-hidden w-full h-[500px] bg-gray-300 dark:bg-gray-700"></div>
       </div>
 
       {/* Submit Button Skeleton */}
       <div className="flex items-center justify-center mt-6">
         <div className="flex justify-center items-center bg-gray-300 dark:bg-gray-700 w-4/6 text-sm lg:text-[20px] lg:w-1/2 font-bold py-2 px-4 lg:py-3 lg:px-6 rounded-full h-12 lg:h-14">
-          {/* Placeholder for text or icon inside the button */}
-          <div className="h-4 w-16 bg-gray-400 dark:bg-gray-600 rounded"></div>
         </div>
       </div>
     </div>
