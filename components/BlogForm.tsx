@@ -20,7 +20,7 @@ const BlogForm = () => {
     const { data: session } = useSession();
     const authorId = session?.user?.id;
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const Router = useRouter();
+    const router = useRouter();
     const { theme } = useTheme();
     const resolvedTheme = theme === "system" ? ( window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" ) : ( theme );
 
@@ -50,7 +50,7 @@ const BlogForm = () => {
         e.preventDefault();
         if(!session) {
             toast.error("Please login to create a post.", { id: 'login-error' });
-            Router.push(`?modal=login`, { scroll: false });
+            router.push(`?modal=login`, { scroll: false });
             return;
         }
         if (!title || !body || !category || !image) {
@@ -81,6 +81,7 @@ const BlogForm = () => {
             setImage(null);
             setPreviewUrl(null);
             toast.success('Post created successfully!', { id: 'create-post' });
+            router.push(`/blog/${data.post._id}`);
         } catch (err) {
             console.error(err);
             toast.error('Failed to create post.', { id: 'create-post' });

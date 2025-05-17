@@ -25,6 +25,8 @@ export default function PostPage({
   const [post, setPost] = useState<Post>()
   const [ comments, setComments ] = useState<Comment[]>([])
   const { theme } = useTheme();
+  const resolvedTheme = theme === "system" ? ( window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" ) : ( theme );
+
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -90,7 +92,7 @@ export default function PostPage({
             </div>
             <button className='text-[0.7rem] w-15 h-7 rounded-full bg-gray-400 text-amber-100 cursor-pointer'>Travel</button>
           </Link>
-          <div className="text-[1rem] px-1 lg:px-0" data-color-mode={theme === 'dark' ? 'dark' : 'light'}>
+          <div className="text-[1rem] px-1 lg:px-0" data-color-mode={resolvedTheme}>
             <MarkdownPreview
               source={post.body}
             />
