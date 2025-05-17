@@ -1,6 +1,16 @@
+'use client';
+
+import { useEffect, useState } from "react";
 import BlogForm from "@/components/BlogForm";
+import BlogFormSkeleton from "@/components/BlogFormSkeleton";
 
 const WriteBlogPage: React.FC = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div>
       {/* Header Section */}
@@ -11,7 +21,7 @@ const WriteBlogPage: React.FC = () => {
       {/* Main Content Area */}
       <div className="flex items-center justify-center lg:p-2 bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
         <div className="bg-white dark:bg-gray-800 p-4 lg:p-8 rounded-xl shadow-lg w-full max-w-3xl">
-          <BlogForm />
+          {mounted ? <BlogForm /> : <BlogFormSkeleton />}
         </div>
       </div>
     </div>

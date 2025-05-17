@@ -75,7 +75,7 @@ const CategoryInput: React.FC<CategoryInputProps> = ({ category, setCategory }) 
     }),
     placeholder: (provided: any) => ({
       ...provided,
-      color: isDark ? '#9ca3af' : '#6b7280',
+      color: '#9ca3af',
     }),
     input: (provided: any) => ({
       ...provided,
@@ -98,7 +98,7 @@ const CategoryInput: React.FC<CategoryInputProps> = ({ category, setCategory }) 
         onChange={(selectedOption) => setCategory(selectedOption)}
         isClearable
         isSearchable
-        placeholder="e.g., Technology, Travel, Food"
+        placeholder="e.g. Technology, Travel, Food"
         styles={customStyles}
         theme={(baseTheme) => ({
           ...baseTheme,
