@@ -17,8 +17,8 @@ interface CategoryInputProps {
 
 const CategoryInput: React.FC<CategoryInputProps> = ({ category, setCategory }) => {
   const [options, setOptions] = useState<CategoryOption[]>([]);
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
+    const { theme } = useTheme();
+    const isDark = theme === "system" ? ( window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" ) : ( theme );
 
   useEffect(() => {
     const fetchCategories = async () => {

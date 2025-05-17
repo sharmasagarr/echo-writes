@@ -17,11 +17,12 @@ const BlogForm = () => {
     const [image, setImage] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [body, setBody] = useState<string | undefined>('');
-    const { theme } = useTheme();
     const { data: session } = useSession();
     const authorId = session?.user?.id;
     const fileInputRef = useRef<HTMLInputElement>(null);
     const Router = useRouter();
+    const { theme } = useTheme();
+    const resolvedTheme = theme === "system" ? ( window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" ) : ( theme );
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
@@ -152,15 +153,16 @@ const BlogForm = () => {
             </div>
 
             {/* MD Editor input */}
-            <div data-color-mode={theme === 'dark' ? 'dark' : 'light'}>
+            <div data-color-mode={resolvedTheme}>
                 <label htmlFor="body" className="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">
                 Content
                 </label>
                 <MDEditor
-                value={body}
-                onChange={setBody}
-                height={400}
-                className="shadow-lg border rounded-lg overflow-hidden"
+                    key={theme}
+                    value={body}
+                    onChange={setBody}
+                    height={400}
+                    className="shadow-lg border rounded-lg overflow-hidden"
                 />
             </div>
 
