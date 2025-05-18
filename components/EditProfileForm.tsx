@@ -5,11 +5,11 @@ import Image from "next/image";
 import { X } from "lucide-react";
 import { toast } from "react-hot-toast";
 
-export default function EditProfilePage() {
-    const [name, setName] = useState<string>("");
+export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: string, oldImage: string, oldBio: string}) {
+    const [name, setName] = useState<string>(oldName);
     const [image, setImage] = useState<File | null>(null);
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    const [bio, setBio] = useState<string>("");
+    const [previewUrl, setPreviewUrl] = useState<string | null>(oldImage);
+    const [bio, setBio] = useState<string>(oldBio);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
@@ -25,7 +25,7 @@ export default function EditProfilePage() {
         const url = file ? URL.createObjectURL(file) : '';
         setPreviewUrl(url);
     };
-
+    console.log(previewUrl)
     const clearImage = () => {
         setImage(null);
         setPreviewUrl(null);
@@ -76,7 +76,7 @@ export default function EditProfilePage() {
                 ref={fileInputRef}
                 className="block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-blue-900 file:text-blue-700 dark:file:text-blue-300 hover:file:bg-blue-100 dark:hover:file:bg-blue-800 cursor-pointer"
                 />
-                {image && (
+                {(image || previewUrl) && (
                     <button
                         type="button"
                         onClick={clearImage}
@@ -108,7 +108,7 @@ export default function EditProfilePage() {
             </label>
             <textarea
             id="bio"
-            value={bio}
+            value={bio ?? ""}
             onChange={(e) => setBio(e.target.value)}
             className="shadow-sm border rounded-lg w-full py-3 px-4 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-[1px]"
             placeholder="Enter your bio"
