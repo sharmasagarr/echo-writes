@@ -3,41 +3,81 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: string, oldImage: string, oldBio: string}) {
     const [name, setName] = useState<string>(oldName);
     const [image, setImage] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(oldImage);
+    const [ isAvatarDeleted, setIsAvatarDeleted ] = useState<boolean>(false);
     const [bio, setBio] = useState<string>(oldBio);
+    const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { data: session } = useSession();
+    const router = useRouter();
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
-        const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file && file.size > MAX_FILE_SIZE) {
-            toast.error('File is too large. Max 2MB allowed.');
-            event.target.value = '';
-            return;
-        }
-        setImage(file || null);
-        const url = file ? URL.createObjectURL(file) : '';
-        setPreviewUrl(url);
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && file.size > MAX_FILE_SIZE) {
+        toast.error('Image is too large. Max 2MB allowed.');
+        event.target.value = '';
+        return;
+    }
+    setImage(file || null);
+    const url = file ? URL.createObjectURL(file) : '';
+    setPreviewUrl(url);
     };
-    console.log(previewUrl)
     const clearImage = () => {
         setImage(null);
         setPreviewUrl(null);
+        oldImage && setIsAvatarDeleted(true);
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
     };
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if(!session) {
+            toast.error("Please login to edit your profile.", { id: 'login-error' });
+            router.push(`?modal=login`, { scroll: false });
+            return;
+        }
+        if (!name) {
+            toast.error("Please enter your name.",  { id: 'validation-error' });
+            return;
+        }
 
-    const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Updated Profile:", name, image, bio);
+        const formData = new FormData();
+        if (session.user.id) formData.append('userId', session.user.id);
+        formData.append('name', name);
+        if (image) formData.append('image', image);
+        if (bio) formData.append('bio', bio);
+        if (isAvatarDeleted) formData.append('isAvatarDeleted', isAvatarDeleted.toString());
+       
+        try {
+            setIsSubmitting(true);
+            toast.loading('Updating profile...', { id: 'update-profile'});
+            const response = await fetch('/api/user/update-info', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error);
+
+            toast.success('Profile updated successfully!', { id: 'update-profile' });
+            router.push(`/profile`);
+            setIsSubmitting(false);
+        } catch (err) {
+            setIsSubmitting(false);
+            console.error(err);
+            toast.error('Failed to update profile.', { id: 'update-profile' });
+        }
     };
 
   return (
@@ -121,6 +161,7 @@ export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: s
             <button
             type="submit"
             className="flex justify-center items-center bg-blue-600 w-4/6 text-sm lg:text-[20px] lg:w-1/2 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-bold py-2 px-4 lg:py-3 lg:px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-200 ease-in-out cursor-pointer"
+            disabled={isSubmitting}
             >
             Save
             </button>
