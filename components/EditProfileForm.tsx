@@ -52,7 +52,7 @@ export default function EditProfilePage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="shadow-sm border rounded-lg w-full py-3 px-4 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-[1px]"
-            placeholder="Enter blog title"
+            placeholder="Enter your name"
             />
         </div>
 
@@ -87,8 +87,8 @@ export default function EditProfilePage() {
                 )}
             </div>
             {previewUrl && (
-                <div className="border rounded-lg flex justify-center items-center mt-2 shadow-sm">
-                    <div className="w-40 h-40 border rounded-full bg-white dark:bg-gray-700 flex justify-center items-center mt-2 shadow-sm overflow-hidden">
+                <div className="border rounded-lg flex justify-center items-center shadow-sm p-2 mt-2">
+                    <div className="w-40 h-40 border rounded-full bg-white dark:bg-gray-700 flex justify-center items-center shadow-sm overflow-hidden">
                     <Image
                         src={previewUrl}
                         alt="Preview"
