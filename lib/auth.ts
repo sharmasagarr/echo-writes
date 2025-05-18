@@ -9,6 +9,7 @@ import { createAuthorInSanity } from "@/app/sanity/createAuthor";
 import { urlFor } from "@/app/sanity/lib/image";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true,
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
