@@ -1,15 +1,18 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getEdgeToken } from "./lib/auth-edge"; // ✅ safe import
+import { getToken } from "next-auth/jwt";
 
 export async function middleware(request: NextRequest) {
-  const token = await getEdgeToken(request);
+  const token = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET,
+  });
 
+  console.log("Token in middleware:", token);
   const isAuth = !!token;
+  const path = request.nextUrl.pathname;
   const protectedPaths = ["/profile"];
-  const pathIsProtected = protectedPaths.some((path) =>
-    request.nextUrl.pathname.startsWith(path)
-  );
+  const pathIsProtected = protectedPaths.some((p) => path.startsWith(p));
 
   if (!isAuth && pathIsProtected) {
     return NextResponse.redirect(new URL("/?modal=login", request.url));
