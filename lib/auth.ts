@@ -82,7 +82,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             .url();
           user.image = imageFromSanityUrl;
         } else {
-          user.image = "";
+          user.image = null;
         }   
           
         token.id = sanityUserId;
@@ -98,7 +98,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (token) {
         session.user.id = token.id;
         session.user.image = token.image;
-        session.user.username = token.username as string | undefined;
+        session.user.username = token.username;
       }
       return session;
     },
