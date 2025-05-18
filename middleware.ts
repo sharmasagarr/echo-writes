@@ -3,10 +3,17 @@ import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export async function middleware(request: NextRequest) {
+  // Determining the correct cookie name based on environment
+  const isProduction = process.env.NODE_ENV === "production";
+  const cookieName = isProduction 
+    ? "__Secure-authjs.session-token" 
+    : "authjs.session-token";
+
   const token = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,
-    cookieName: "__Secure-authjs.session-token",
+    cookieName,
+    secureCookie: isProduction,
   });
 
   const isAuth = !!token;
