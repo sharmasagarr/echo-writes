@@ -128,12 +128,15 @@ export default function MyProfile() {
                         <Image
                         src={urlFor(user.image)!.width(240).height(240).url()}
                         alt={`${user.name}'s avatar`}
-                        layout="fill"
-                        objectFit="cover"
+                        fill
+                        className="object-cover rounded-full"
+                        sizes="(max-width: 240px) 100vw, 240px"
+                        priority
+                        quality={100}
                         />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-6xl font-bold">
-                        {user.name.charAt(0).toUpperCase()}
+                            {user.name.charAt(0).toUpperCase()}
                         </div>
                     )}
                     </div>
@@ -242,6 +245,7 @@ export default function MyProfile() {
                 </div>
             </div>
 
+            {/* Footer */}
             <div className="mt-24"></div>
         </section>
     );

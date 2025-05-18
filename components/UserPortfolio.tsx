@@ -9,7 +9,6 @@ import Link from 'next/link'; // Import Link component for navigation
 import { formatDate, getDescription } from "@/lib/utils";
 import { Eye } from "lucide-react";
 
-
 export default function UserPortfolio({ username }: { username: string }) {
     const [user, setUser] = useState<Author | null>(null);
     const [posts, setPosts] = useState<Post[]>([]);
@@ -115,8 +114,11 @@ export default function UserPortfolio({ username }: { username: string }) {
                         <Image
                         src={urlFor(user.image)!.width(240).height(240).url()}
                         alt={`${user.name}'s avatar`}
-                        layout="fill"
-                        objectFit="cover"
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 240px) 100vw, 240px"
+                        priority
+                        quality={100}
                         />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-6xl font-bold">
