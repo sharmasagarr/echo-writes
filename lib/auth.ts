@@ -9,7 +9,6 @@ import { createAuthorInSanity } from "@/app/sanity/createAuthor";
 import { urlFor } from "@/app/sanity/lib/image";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  trustHost: true,
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -97,8 +96,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.id as string;
-        session.user.image = token.image as string;
+        session.user.id = token.id;
+        session.user.image = token.image;
         session.user.username = token.username as string | undefined;
       }
       return session;
@@ -107,5 +106,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: "jwt",
   },
+  trustHost: true,
   secret: process.env.NEXTAUTH_SECRET,
 });
