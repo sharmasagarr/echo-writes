@@ -206,7 +206,15 @@ export default function MyProfile() {
                 {postsError && <div className="text-center text-red-500">{postsError}</div>}
 
                 {!loadingPosts && !postsError && posts.length === 0 && (
-                    <div className="text-center text-gray-500">No posts found for this user.</div>
+                    <div className="flex flex-col items-center justify-center">
+                        <p className="text-center text-gray-500">You have not posted any blogs. Start writing now!</p>
+                        <button
+                            className="mt-6 px-8 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 text-md cursor-pointer"
+                            onClick={() => router.push(`/write`)}
+                        >
+                            Write a Blog
+                        </button>
+                    </div>
                 )}
 
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
