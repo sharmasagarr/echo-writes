@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { type Author, type Post } from "@/lib/definitions";
+import { useUser } from "@/context/UserContext";
+import { type Post } from "@/lib/definitions";
 import { urlFor } from "@/app/sanity/lib/image";
 import { format } from 'date-fns';
 import Link from 'next/link';
@@ -13,49 +14,17 @@ import { useRouter } from "next/navigation";
 
 
 export default function MyProfile() {
-    const [user, setUser] = useState<Author | null>(null);
+    const { user, loadingUser } = useUser();
     const [posts, setPosts] = useState<Post[]>([]);
-    const [loadingUser, setLoadingUser] = useState(true);
     const [loadingPosts, setLoadingPosts] = useState(false);
-    const [userError, setUserError] = useState<string | null>(null);
     const [postsError, setPostsError] = useState<string | null>(null);
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     const router = useRouter();
-
-    // Fetching user info
-    useEffect(() => {
-        if (status === 'authenticated' && session?.user) {
-            const fetchUserInfo = async () => {
-                setLoadingUser(true);
-                setUserError(null);
-                try {
-                    const res = await fetch("/api/user/get-info", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ username: session.user.username }),
-                    });
-                    const json = await res.json();
-                    if (json.error) {
-                        console.error("Error fetching user information:", json.error);
-                        setUserError(json.error);
-                    } else {
-                        setUser(json.user);
-                    }
-                } catch (error: any) {
-                    console.error("Error fetching user information:", error);
-                    setUserError(error.message ?? "Failed to fetch user info.");
-                } finally {
-                    setLoadingUser(false);
-                }
-            }
-            fetchUserInfo();
-        }
-    }, [session?.user, status]);
 
     // Fetching user posts once user is loaded
     useEffect(() => {
         if (!user?._id) {
-            if (!loadingUser && !userError) {
+            if (!loadingUser && !user) {
                 setPosts([]);
                 setLoadingPosts(false);
             }
@@ -86,7 +55,7 @@ export default function MyProfile() {
             }
         }
         fetchUserPosts();
-    }, [user?._id, loadingUser, userError]);
+    }, [user, loadingUser]);
 
 
     // Loading and Error States
@@ -98,11 +67,11 @@ export default function MyProfile() {
         );
     }
 
-    if (userError || !user) {
+    if (!user) {
         return (
             <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
                 <div className="text-center text-red-500 dark:text-red-400">
-                    {userError ?? `User @"${session?.user.username}" not found.`}
+                    {`User @"${session?.user.username}" not found.`}
                 </div>
             </section>
         );

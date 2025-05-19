@@ -6,6 +6,7 @@ import { X } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { useUser } from "@/context/UserContext";
 
 export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: string, oldImage: string, oldBio: string}) {
     const [name, setName] = useState<string>(oldName);
@@ -17,6 +18,7 @@ export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: s
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { data: session } = useSession();
     const router = useRouter();
+    const { fetchUserInfo } = useUser();
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
@@ -69,6 +71,7 @@ export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: s
 
             const data = await response.json();
             if (!response.ok) throw new Error(data.error);
+            fetchUserInfo();
 
             toast.success('Profile updated successfully!', { id: 'update-profile' });
             router.push(`/profile`);
