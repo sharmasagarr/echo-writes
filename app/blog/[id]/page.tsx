@@ -15,6 +15,7 @@ import PostPageSkeleton from '@/components/PostPageSkeleton';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@/components/styles/custom-md-preview.css';
 import { useTheme } from 'next-themes';
+import { useSession } from 'next-auth/react';
 
 export default function PostPage({
   params,
@@ -25,6 +26,7 @@ export default function PostPage({
   const [post, setPost] = useState<Post>()
   const [ comments, setComments ] = useState<Comment[]>([])
   const { theme } = useTheme();
+  const { data: session } = useSession();
   const resolvedTheme = theme === "system" ? ( window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" ) : ( theme );
 
 
@@ -65,6 +67,7 @@ export default function PostPage({
               className="aspect-video w-full rounded-sm border-2"
               width="650"
               height="350"
+              priority
             />
           )}
           <Link
@@ -86,7 +89,10 @@ export default function PostPage({
                 </div>
               )}
               <div>
-                <p className="text-[0.9rem]">{post.author?.name}</p>
+                <div className='flex items-center gap-1'>
+                  <p className="text-[0.9rem]">{post.author?.name}</p>{" "}
+                  {(session?.user?.username === post.author?.username) && (<p className='text-[0.7rem]'>(You)</p>)}
+                </div>
                 <p className='text-[0.7rem] -mt-[2px]'>@{post.author?.username}</p>
               </div>
             </div>

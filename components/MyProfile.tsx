@@ -179,7 +179,7 @@ export default function MyProfile() {
                         <p className="text-center text-gray-500">You have not posted any blogs. Start writing now!</p>
                         <button
                             className="mt-6 px-8 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 text-md cursor-pointer"
-                            onClick={() => router.push(`/write`)}
+                            onClick={() => router.push(`/blog/write`)}
                         >
                             Write a Blog
                         </button>
@@ -223,7 +223,7 @@ export default function MyProfile() {
             </div>
 
             {/* Footer */}
-            <div className="mt-24"></div>
+            <div className="mt-18 lg:mt-24"></div>
         </section>
     );
 }

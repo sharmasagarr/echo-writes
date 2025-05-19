@@ -1,42 +1,13 @@
 'use client'
 
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useUser } from "@/context/UserContext";
 import EditProfileForm from "@/components/EditProfileForm";
 import { urlFor } from "@/app/sanity/lib/image";
+import EditProfileFormSkeleton from "@/components/EditProfileFormSkeleton";
 
 const EditProfilePage = () => {
-    const [loading, setLoading] = useState(true);
-    const [oldName, setOldName] = useState<string>("");
-    const [oldImage, setOldImage] = useState<string>("");
-    const [oldBio, setOldBio] = useState<string>("");
-    const { data: session } = useSession();
+    const { user, loadingUser } = useUser();
 
-    useEffect(() => {
-        if (!session?.user?.username) return;
-
-        const fetchUserData = async () => {
-            setLoading(true);
-            try {
-                const res = await fetch("/api/user/get-info", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ username: session?.user.username }),
-                });
-                const json = await res.json();
-                setOldName(json.user.name);
-                setOldImage(json.user.image ? urlFor(json.user.image)!.url() : "");
-                setOldBio(json.user.bio);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        };
-
-        fetchUserData();
-    }, [session?.user.username]);
     return (
         <div>
             {/* Header Section */}
@@ -46,14 +17,16 @@ const EditProfilePage = () => {
 
             {/* Main Content Area */}
             <div className="flex items-center justify-center lg:p-2 bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
-                <div className="bg-white dark:bg-gray-800 p-4 lg:p-8 rounded-xl shadow-lg w-full max-w-3xl">
-                {!loading && 
+                <div className="bg-white dark:bg-gray-800 p-4 lg:p-8 rounded-xl shadow-lg w-full max-w-3xl mb-10">
+                {!loadingUser ? ( 
                     <EditProfileForm
-                        oldName={oldName}
-                        oldImage={oldImage}
-                        oldBio={oldBio}
+                        oldName={user?.name ?? ""}
+                        oldImage={user?.image ? urlFor(user.image)!.url() : ""}
+                        oldBio={user?.bio ?? ""}
                     />
-                }
+                ) : (
+                    <EditProfileFormSkeleton />
+                )}
                 </div>
             </div>
         </div>

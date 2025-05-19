@@ -7,10 +7,12 @@ import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "next-auth/react";
 import AvatarElement from "./AvatarElement";
 import { useRouter, usePathname } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 
 export default function UserProfile() {
   const [hasMounted, setHasMounted] = useState(false);
   const { data: session, status } = useSession();
+  const { user, loadingUser } = useUser();
   const router = useRouter();
   const currentUrl = usePathname();
 
@@ -53,7 +55,7 @@ export default function UserProfile() {
                 <div className="flex items-center gap-2">
                   <AvatarElement width={40} height={40} />
                   <div className="flex flex-col items-start">
-                    <h1 className="text-sm">{session.user.name}</h1>
+                    <h1 className="text-sm">{!loadingUser ? user?.name : session.user.name }</h1>
                     <small className="text-[0.6rem] opacity-80 -mt-1">{session.user.email}</small>
                   </div>
                   <ChevronDown className="!h-3 !w-3 text-white" />
@@ -78,7 +80,7 @@ export default function UserProfile() {
           >
             <DropdownMenuItem>
               <div>
-                <p className="font-medium">{session.user.name}</p>
+                <p className="font-medium">{!loadingUser ? user?.name : session.user.name }</p>
                 <small>{session.user.email}</small>
               </div>
             </DropdownMenuItem><hr className="mb-1"/>

@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useUser } from "@/context/UserContext";
+import { cn } from "@/lib/utils";
 
 export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: string, oldImage: string, oldBio: string}) {
     const [name, setName] = useState<string>(oldName);
@@ -71,11 +72,11 @@ export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: s
 
             const data = await response.json();
             if (!response.ok) throw new Error(data.error);
+            
             fetchUserInfo();
-
-            toast.success('Profile updated successfully!', { id: 'update-profile' });
-            router.push(`/profile`);
             setIsSubmitting(false);
+            router.push(`/profile`);
+            toast.success('Profile updated successfully!', { id: 'update-profile' });
         } catch (err) {
             setIsSubmitting(false);
             console.error(err);
@@ -163,10 +164,12 @@ export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: s
         <div className="flex items-center justify-center mt-6">
             <button
             type="submit"
-            className="flex justify-center items-center bg-blue-600 w-4/6 text-sm lg:text-[20px] lg:w-1/2 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-bold py-2 px-4 lg:py-3 lg:px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-200 ease-in-out cursor-pointer"
+            className={cn("flex justify-center items-center bg-blue-600 w-4/6 text-sm lg:text-[20px] lg:w-1/2 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-bold py-2 px-4 lg:py-3 lg:px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-200 ease-in-out cursor-pointer",
+                isSubmitting && 'bg-gray-400 dark:bg-gray-400 dark:hover:bg-gray-400 hover:cursor-not-allowed hover:bg-gray-400'
+            )}
             disabled={isSubmitting}
             >
-            Save
+            {isSubmitting ? "Saving..." : "Save Changes"}
             </button>
         </div>
     </form>
