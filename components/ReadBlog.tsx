@@ -19,14 +19,14 @@ const ReadBlog = ({post}: {post: Post}) => {
                 <div className="flex items-center justify-between w-full px-3 py-1 backdrop-blur-md rounded-sm border border-gray/100 dark:border-white/20 shadow-lg">
                     <div className="flex items-center justify-evenly md:justify-start gap-3 w-full md:w-fit">
                         <Link 
-                            href={`/blog/edit`}
+                            href={`/blog/edit/${post._id}`}
                             className="text-[0.8rem] text-blue-500 flex items-center justify-center"
                         >   
                             <PenLine className="w-3 h-3 inline-block mr-1" />
                             Edit
                         </Link>
                         <button
-                            onClick={() => navigator.clipboard.writeText(`${window.location.origin}/blog/${post.slug}`)}
+                            onClick={() => navigator.clipboard.writeText(`${window.location.origin}/blog/${post._id}`)}
                             className="text-[0.8rem] text-gray-400 flex items-center mr-1 cursor-pointer hover:text-gray-600 dark:hover:text-gray-300"
                             >
                             <Copy className="w-3 h-3 inline-block mr-1" />
@@ -43,7 +43,7 @@ const ReadBlog = ({post}: {post: Post}) => {
                     <p className="text-[0.7rem] text-gray-500 dark:text-gray-400 hidden md:block">You are the author of this post</p>
                 </div>
             )}
-        <div className="flex flex-col justify-center gap-4 w-fit lg:w-130 h-auto bg-white lg:rounded-sm p-4 lg:p-7 dark:bg-gray-800 border border-gray/100 dark:border-white/20 shadow-lg">
+        <div className="flex flex-col justify-center gap-4 w-fit lg:w-130 h-auto bg-white lg:rounded-sm p-4 lg:p-7 dark:bg-gray-900 border border-gray/100 dark:border-white/20 shadow-lg">
             {post.image && (
             <Image
                 src={urlFor(post.image)!.width(650).height(350).url()}

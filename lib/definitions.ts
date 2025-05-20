@@ -53,6 +53,7 @@ export type Post = {
     bio?: string;
   };
   category?: {
+    _id?: string;
     title?: string;
   };
   views: number;

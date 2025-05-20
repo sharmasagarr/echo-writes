@@ -43,14 +43,14 @@ export default function PostPage({
   if (!post) return <PostPageSkeleton />;
 
   return (
-    <main className="dark:bg-gray-700">
+    <main className="dark:bg-gray-800">
       <div className="flex flex-col justify-center gap-2 lg:gap-3 items-center pattern dark:pattern h-30 lg:h-50">
         <div className='text-[0.5rem] lg:text-[0.75rem] text-black bg-amber-300 p-1 lg:p-2 rounded-br-lg rounded-tl-lg border-2 font-light dark:text-black'>{formatDate(post._createdAt)}</div>
         <div className='p-3 font-semibold lg:tracking-wider lg:leading-snug lg:text-4xl text-center bg-gray-800 text-white shadow-lg border-2 border-black-400'>{post.title}</div>
       </div>
       <div className='flex flex-col lg:flex-row justify-center p-1 gap-3 lg:gap-6 lg:p-2'>
         <ReadBlog post={post} />
-        <div className="flex flex-col gap-3 w-full lg:w-80 h-fit bg-white rounded-sm p-5 dark:bg-gray-800 border border-gray/100 dark:border-white/20 shadow-lg">
+        <div className="flex flex-col gap-3 w-full lg:w-80 h-fit bg-white rounded-sm p-5 dark:bg-gray-900 border border-gray/100 dark:border-white/20 shadow-lg">
           <div className="flex justify-between items-center">
             <h1>Comments</h1>
             <div className="flex items-center gap-1 text-sm"><Eye />{post.views}</div>

@@ -124,7 +124,8 @@ export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: s
                     <button
                         type="button"
                         onClick={clearImage}
-                        className=" text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full p-2 transition duration-200 ease-in-out cursor-pointer"
+                        className=" text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full p-2 transition duration-200 ease-in-out cursor-pointer disabled:cursor-not-allowed"
+                        disabled={isSubmitting}
                     >
                         <X size={23} />
                     </button>
@@ -169,7 +170,7 @@ export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: s
             )}
             disabled={isSubmitting}
             >
-            {isSubmitting ? "Saving..." : "Save Changes"}
+            {isSubmitting ? "Updating..." : "Update"}
             </button>
         </div>
     </form>
