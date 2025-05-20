@@ -10,7 +10,7 @@ const AvatarElement = ({ width, height }: { width: number; height: number }) => 
     const { user, loadingUser } = useUser();
     const { data: session, status } = useSession();
 
-    if (loadingUser || status === "loading") {
+    if (loadingUser && status === "loading") {
         return (
             <div 
                 className="rounded-full bg-gray-100 dark:bg-gray-200 animate-pulse"
@@ -22,7 +22,7 @@ const AvatarElement = ({ width, height }: { width: number; height: number }) => 
     if (!session) {
         return (
             <CircleUserIcon 
-                className="text-gray-400 dark:text-gray-600" 
+                className="text-black dark:text-white" 
                 style={{ width: `${width}px`, height: `${height}px` }} 
             />
         );
