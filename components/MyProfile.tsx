@@ -81,9 +81,9 @@ export default function MyProfile() {
     return (
         <section className="min-h-screen bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-gray-200 antialiased overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-[5rem]">
-                <div className="flex flex-col items-center justify-center lg:justify-start p-3 border border-gray-300 dark:border-gray-700 my-4 rounded-lg shadow-md bg-white dark:bg-gray-800">
+                <div className="flex flex-col items-center justify-center lg:justify-start p-1 md:p-2 border border-gray-300 dark:border-gray-700 my-4 rounded-lg shadow-md bg-white dark:bg-gray-800">
                     <p
-                        className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white tracking-tight"
+                        className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white tracking-tight"
                     >
                         Your Profile
                     </p>
