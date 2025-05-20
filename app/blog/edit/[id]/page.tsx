@@ -4,6 +4,9 @@ import { type Post } from "@/lib/definitions";
 import { use, useState, useEffect } from "react";
 import EditBlogForm from "@/components/EditBlogForm";
 import BlogFormSkeleton from "@/components/BlogFormSkeleton";
+import { useSession } from "next-auth/react";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function EditPostPage({
   params,
@@ -11,9 +14,12 @@ export default function EditPostPage({
   params: Promise<{ id: string }>;
 }) {
     const { id } = use(params);
+    const { data: session } = useSession();
     const [post, setPost] = useState<Post | null>(null);
     const [loadingPost, setLoadingPost] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const router = useRouter();
+
 
     useEffect(() => {
         setMounted(true);
@@ -41,6 +47,13 @@ export default function EditPostPage({
     
         fetchPost();
     }, [id]);
+
+    if ( post?.author?._id !== session?.user.id) {
+        toast.error("Unauthorized", { id: 'auth-error' });
+        router.back();
+        return null;
+    }
+    
     return (
         <div>
         {/* Header Section */}
