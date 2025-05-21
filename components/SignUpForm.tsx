@@ -71,6 +71,7 @@ export default function SignUp() {
         <button
           onClick={async () => await signIn("google", {callbackUrl: cleanUrl})}
           className="w-full flex justify-center cursor-pointer border border-gray-400 dark:border-white rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+          disabled={pending}
         >
           <div className="h-10 rounded-lg flex justify-center items-center gap-3">
             <Image src="/google.svg" alt="google-icon" className="block dark:hidden" width={25} height={25} />
@@ -79,8 +80,9 @@ export default function SignUp() {
           </div>
         </button>
         <button 
-            onClick={async() => await signIn("github", {callbackUrl: cleanUrl})}
-            className="w-full flex justify-center cursor-pointer border border-gray-400 dark:border-white rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+          onClick={async() => await signIn("github", {callbackUrl: cleanUrl})}
+          className="w-full flex justify-center cursor-pointer border border-gray-400 dark:border-white rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+          disabled={pending}
         >
           <div className="h-10 rounded-lg flex justify-center items-center gap-3">
             <Image src="/github.svg" alt="github-icon" className="block dark:hidden" width={25} height={25} />
@@ -103,6 +105,7 @@ export default function SignUp() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="border border-gray-400 dark:border-gray-400 dark:bg-gray-850 dark:text-white rounded-md w-full pl-2 text-[0.8rem] h-8"
+          disabled={pending}
         />
         {state?.errors?.name && <div className="text-red-500 mt-1 text-[12px]">{state.errors.name}</div>}
         <label htmlFor="email" className="text-[15px] ml-1">Email</label>
@@ -114,6 +117,7 @@ export default function SignUp() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="border border-gray-400 dark:border-gray-400 dark:bg-gray-850 dark:text-white rounded-md w-full pl-2 text-[0.8rem] h-8"
+          disabled={pending}
         />
         {state?.errors?.email && <div className="text-red-500 mt-1 text-[12px]">{state.errors.email}</div>}
         <label htmlFor="password" className="text-[15px] ml-1">Password</label>
@@ -125,6 +129,7 @@ export default function SignUp() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="border border-gray-400 dark:border-gray-400 dark:bg-gray-850 dark:text-white rounded-md w-full pl-2 text-[0.8rem] h-8"
+          disabled={pending}
         />
         {state?.errors?.password && (<div className="text-red-500 mt-1 text-[12px]">Password must {state.errors.password[0]}</div>)}
         <button
@@ -142,6 +147,7 @@ export default function SignUp() {
         <button 
           className="text-[#0066ff] dark:text-blue-400 cursor-pointer"
           onClick={() => router.push(`?modal=login`, { scroll: false })}
+          disabled={pending}
         >
           Log in
         </button>

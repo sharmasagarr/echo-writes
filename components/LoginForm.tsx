@@ -80,6 +80,7 @@ export default function Login() {
         <button 
           onClick={() => signIn("google", {callbackUrl: cleanUrl})}
           className="w-full flex justify-center  cursor-pointer border border-gray-400 dark:border-white rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+          disabled={loading}
         >
           <div className="h-10 rounded-lg flex justify-center items-center gap-3">
             <Image src="/google.svg" alt="google-icon" className="block dark:hidden" width={25} height={25} />
@@ -90,6 +91,7 @@ export default function Login() {
         <button 
           onClick={() => signIn("github", {callbackUrl: cleanUrl})}
           className="w-full flex justify-center cursor-pointer border border-gray-400 dark:border-white rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+          disabled={loading}
         >
           <div className="h-10 rounded-lg flex justify-center items-center gap-3">
             <Image src="/github.svg" alt="github-icon" className="block dark:hidden" width={25} height={25} />
@@ -112,6 +114,7 @@ export default function Login() {
           placeholder="Enter Email"
           className="border border-gray-400 dark:border-gray-400 dark:bg-gray-850 dark:text-white rounded-md w-full pl-2 text-[0.8rem] h-8"
           required
+          disabled={loading}
         />
         <label htmlFor="password" className="text-[15px] ml-1">Password</label>
         <input
@@ -122,6 +125,7 @@ export default function Login() {
           placeholder="Enter Password"
           className="border border-gray-400 dark:border-gray-400 dark:bg-gray-850 dark:text-white rounded-md w-full pl-2 text-[0.8rem] h-8"
           required
+          disabled={loading}
         />
         {error && <div className="text-red-500 mt-1 text-[12px] text-center">{error}</div>}
         <button
@@ -139,6 +143,7 @@ export default function Login() {
         <button
           className="text-[#0066ff] dark:text-blue-400 cursor-pointer"
           onClick={() => router.push(`?modal=signup`, { scroll: false })}
+          disabled={loading}
         >
           Sign Up
         </button>

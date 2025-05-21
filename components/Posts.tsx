@@ -28,7 +28,7 @@ export default function Posts() {
   }, []);
   
   return (
-    <main className="mx-[1.5rem] lg:mx-[5rem] mt-[1rem] lg:mt-[2rem]">
+    <main className="mx-[0.7rem] lg:mx-[5rem] mt-[1rem] lg:mt-[2rem]">
       <h1 className="text-xl lg:text-2xl font-bold">Featured Blogs</h1>
       <div className="flex flex-col lg:grid grid-cols-3 gap-6 mt-4">
         { posts.length === 0 ? (

@@ -71,7 +71,7 @@ export default function EditPostPage({
     
         {/* Main Content Area */}
         <div className="flex items-center justify-center lg:p-2 bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
-            <div className="bg-white dark:bg-gray-800 p-4 lg:p-8 rounded-xl shadow-lg w-full max-w-3xl">
+            <div className="bg-white dark:bg-gray-800 p-4 lg:p-8 rounded-xl shadow-lg w-full max-w-3xl mb-6 lg:mb-10">
                 {!loadingPost && mounted ? 
                 <EditBlogForm 
                     post={post} 

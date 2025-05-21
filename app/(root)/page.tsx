@@ -6,7 +6,7 @@ export default function Home() {
     <main>
       <HeroSection />
       <Posts />
-      <div className="mt-20"></div>
+      <div className="mt-10 lg:mt-15"></div>
     </main>
   );
 }

@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { Send, X } from 'lucide-react';
 import { useRouter } from "next/navigation"
+import { cn } from "@/lib/utils"
 
 const BlogForm = () => {
     const [title, setTitle] = useState('');
@@ -17,6 +18,7 @@ const BlogForm = () => {
     const [image, setImage] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [body, setBody] = useState<string | undefined>('');
+    const [ isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const { data: session } = useSession();
     const authorId = session?.user?.id;
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -66,6 +68,7 @@ const BlogForm = () => {
         if (image) formData.append('image', image);
 
         try {
+            setIsSubmitting(true);
             toast.loading('Creating post...', { id: 'create-post'});
             const response = await fetch('/api/post/create', {
                 method: 'POST',
@@ -74,15 +77,17 @@ const BlogForm = () => {
 
             const data = await response.json();
             if (!response.ok) throw new Error(data.error);
-
+            
             setTitle('');
             setBody('');
             setCategory(null);
             setImage(null);
             setPreviewUrl(null);
+            setIsSubmitting(false);
             toast.success('Post created successfully!', { id: 'create-post' });
             router.push(`/blog/${data.post._id}`);
         } catch (err) {
+            setIsSubmitting(false);
             console.error(err);
             toast.error('Failed to create post.', { id: 'create-post' });
         }
@@ -135,20 +140,24 @@ const BlogForm = () => {
                             type="button"
                             onClick={clearImage}
                             className=" text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full p-2 transition duration-200 ease-in-out cursor-pointer"
+                            disabled={isSubmitting}
                         >
                             <X size={23} />
                         </button>
                     )}
                 </div>
                 {previewUrl && (
-                    <div className="border rounded-lg flex justify-center items-center mt-2 shadow-sm">
-                        <Image
-                            src={previewUrl}
-                            alt="Preview"
-                            width={500}
-                            height={300}
-                            className="aspect-video object-cover"
-                        />
+                    <div className="border rounded-sm flex justify-center items-center shadow-sm mt-2">
+                        <div className="w-85 border bg-white dark:bg-gray-700 flex justify-center items-center shadow-sm overflow-hidden">
+                            <Image
+                                src={previewUrl}
+                                alt="Preview"
+                                width={650}
+                                height={350}
+                                priority
+                                className="w-auto h-auto aspect-video object-cover"
+                            />
+                        </div>
                     </div>
                 )}
             </div>
@@ -170,10 +179,13 @@ const BlogForm = () => {
             {/* Submit Button */}
             <div className="flex items-center justify-center mt-6">
                 <button
-                type="submit"
-                className="flex justify-center items-center bg-blue-600 w-4/6 text-sm lg:text-[20px] lg:w-1/2 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-bold py-2 px-4 lg:py-3 lg:px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-200 ease-in-out cursor-pointer"
+                    type="submit"
+                    className={cn("flex justify-center items-center bg-blue-600 w-4/6 text-sm lg:text-[20px] lg:w-1/2 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-bold py-2 px-4 lg:py-3 lg:px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-200 ease-in-out cursor-pointer",
+                        isSubmitting && 'bg-gray-400 dark:bg-gray-400 dark:hover:bg-gray-400 hover:cursor-not-allowed hover:bg-gray-400'
+                    )}
+                disabled={isSubmitting}
                 >
-                Submit
+                {isSubmitting ? "Uploading..." : "Submit"}
                 <Send className="ml-2 text-white" />
                 </button>
             </div>

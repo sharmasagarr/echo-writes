@@ -38,16 +38,18 @@ const ReadBlog = ({post}: {post: Post}) => {
                     <p className="text-[0.7rem] text-gray-500 dark:text-gray-400 hidden md:block">You are the author of this post</p>
                 </div>
             )}
-        <div className="flex flex-col justify-center gap-4 w-fit lg:w-130 h-auto bg-white lg:rounded-sm p-4 lg:p-7 dark:bg-gray-900 border border-gray/100 dark:border-white/20 shadow-lg">
+        <div className="flex flex-col justify-center gap-4 w-full lg:w-130 h-auto bg-white lg:rounded-sm p-4 lg:p-7 dark:bg-gray-900 border border-gray/100 dark:border-white/20 shadow-lg">
             {post.image && (
-            <Image
-                src={urlFor(post.image)!.width(650).height(350).url()}
-                alt={post.title}
-                className="aspect-video w-full rounded-sm border-2"
-                width="650"
-                height="350"
-                priority
-            />
+            <div className="border-2 flex justify-center items-center rounded-sm overflow-hidden">
+                <Image
+                    src={urlFor(post.image)!.url()}
+                    alt={post.title}
+                    width={650}
+                    height={350}
+                    className="w-full h-auto aspect-video object-cover"
+                    priority
+                />
+            </div>
             )}
             <Link
             href={`/user/${post.author?.username}`} 

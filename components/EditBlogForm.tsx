@@ -148,14 +148,17 @@ const EditBlogForm = ({ post } : { post: Post | null }) => {
                     )}
                 </div>
                 {previewUrl && (
-                    <div className="border rounded-lg flex justify-center items-center mt-2 shadow-sm">
-                        <Image
-                            src={previewUrl}
-                            alt="Preview"
-                            width={500}
-                            height={300}
-                            className="aspect-video object-cover"
-                        />
+                    <div className="border rounded-sm flex justify-center items-center shadow-sm mt-2">
+                        <div className="w-85 border bg-white dark:bg-gray-700 flex justify-center items-center shadow-sm overflow-hidden">
+                            <Image
+                                src={previewUrl}
+                                alt="Preview"
+                                width={650}
+                                height={350}
+                                priority
+                                className="w-auto h-auto aspect-video object-cover"
+                            />
+                        </div>
                     </div>
                 )}
             </div>
