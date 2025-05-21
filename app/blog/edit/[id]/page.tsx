@@ -60,7 +60,7 @@ export default function EditPostPage({
         });
         router.push(`/blog/${id}`);
     }
-    }, [session, post, router, id]);
+    }, [session, status, post, router, id]);
 
     return (
         <div>

@@ -6,7 +6,8 @@ import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@/components/styles/custom-md-preview.css';
 import { type Post } from "@/lib/definitions";
 import { useSession } from "next-auth/react";
-import { PenLine, Trash2, Copy } from 'lucide-react';
+import { PenLine, Copy } from 'lucide-react';
+import DeletePostButton from "@/components/DeletePostButton";
 
 const ReadBlog = ({post}: {post: Post}) => {
     const { theme } = useTheme();
@@ -32,13 +33,7 @@ const ReadBlog = ({post}: {post: Post}) => {
                             <Copy className="w-3 h-3 inline-block mr-1" />
                             Copy Link
                         </button>
-                        <Link 
-                            href={`/blog/delete`}
-                            className="text-[0.8rem] text-red-500 flex items-center justify-center"
-                        >
-                            <Trash2 className="w-3 h-3 inline-block mr-1" />
-                            Delete
-                        </Link>
+                        <DeletePostButton postId={post._id} userId={session?.user.id} />
                     </div>
                     <p className="text-[0.7rem] text-gray-500 dark:text-gray-400 hidden md:block">You are the author of this post</p>
                 </div>
