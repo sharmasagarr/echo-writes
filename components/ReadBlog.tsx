@@ -3,6 +3,7 @@ import Link from "next/link"
 import { useTheme } from "next-themes"
 import { urlFor } from "@/app/sanity/lib/image"
 import MarkdownPreview from '@uiw/react-markdown-preview';
+import '@uiw/react-markdown-preview/markdown.css';
 import '@/components/styles/custom-md-preview.css';
 import { type Post } from "@/lib/definitions";
 import { useSession } from "next-auth/react";
@@ -80,9 +81,7 @@ const ReadBlog = ({post}: {post: Post}) => {
             <button className='text-[0.7rem] w-15 h-7 rounded-full bg-gray-400 text-amber-100 cursor-pointer'>Travel</button>
             </Link>
             <div className="text-[1rem] px-1 lg:px-0" data-color-mode={resolvedTheme}>
-            <MarkdownPreview
-                source={post.body}
-            />
+            <MarkdownPreview source={post.body} />
             </div>
         </div>
         </div>

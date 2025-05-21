@@ -4,8 +4,10 @@ import Image from "next/image"
 import { useState, useRef } from "react"
 import CategoryInput from "./CategoryInput"
 import MDEditor from "@uiw/react-md-editor"
-import { useTheme } from 'next-themes';
+import '@uiw/react-md-editor/markdown-editor.css';
+import '@uiw/react-markdown-preview/markdown.css';
 import '@/components/styles/custom-md-editor.css';
+import { useTheme } from 'next-themes';
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { Send, X } from 'lucide-react';
