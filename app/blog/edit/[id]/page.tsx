@@ -14,7 +14,7 @@ export default function EditPostPage({
   params: Promise<{ id: string }>;
 }) {
     const { id } = use(params);
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
     const [post, setPost] = useState<Post | null>(null);
     const [loadingPost, setLoadingPost] = useState(false);
     const [mounted, setMounted] = useState(false);
@@ -48,12 +48,20 @@ export default function EditPostPage({
         fetchPost();
     }, [id]);
 
-    if ( post?.author?._id !== session?.user.id) {
-        toast.error("Unauthorized", { id: 'auth-error' });
-        router.back();
-        return null;
+    useEffect(() => {
+    if (status !== "loading" && !session) {
+        toast.error("Login first to edit a post.", {
+            id: "auth-error",
+        });
+        router.push(`/blog/${id}?modal=login`);
+    } else if (post && post.author?._id !== session?.user.id) {
+        toast.error("Unauthorized", {
+            id: "auth-error",
+        });
+        router.push(`/blog/${id}`);
     }
-    
+    }, [session, post, router, id]);
+
     return (
         <div>
         {/* Header Section */}

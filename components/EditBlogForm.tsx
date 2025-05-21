@@ -51,9 +51,9 @@ const EditBlogForm = ({ post } : { post: Post | null }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if(!session) {
-            toast.error("Please login to create a post.", { id: 'login-error' });
-            router.push(`?modal=login`, { scroll: false });
+        if(post?.author?._id !== authorId) {
+            toast.error("You are not authorized to edit this post", { id: 'login-error' });
+            router.push(`/blog/${post?._id}`, { scroll: false });
             return;
         }
         if (!title || !body || !category || (!image && !previewUrl)) {
