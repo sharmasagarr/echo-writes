@@ -18,7 +18,7 @@ const ReadBlog = ({post}: {post: Post}) => {
     return (
         <div className="flex flex-col gap-1 lg:gap-2 items-center">
             {post.author?.username === session?.user?.username && (
-                <div className="flex items-center justify-between w-full px-3 py-1 backdrop-blur-md rounded-sm border border-gray/100 dark:border-white/20 shadow-lg">
+                <div className="flex items-center justify-between w-full px-3 py-1 backdrop-blur-md rounded-sm border border-gray/100 dark:border-white/20">
                     <div className="flex items-center justify-evenly md:justify-start gap-3 w-full md:w-fit">
                         <Link 
                             href={`/blog/edit/${post._id}`}
