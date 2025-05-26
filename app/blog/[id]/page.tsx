@@ -1,7 +1,7 @@
 'use client'
 
 import { use ,useState, useEffect } from 'react';
-import { ChevronDown, ThumbsUp, Eye, MessageCircleMore, Share2 } from 'lucide-react';
+import { ChevronDown, Eye, MessageCircleMore, Share2 } from 'lucide-react';
 import ReadBlog from "@/components/ReadBlog";
 import UpdateViews from "@/components/UpdateViews";
 import AddComment from "@/components/AddComment";
@@ -10,6 +10,7 @@ import AvatarElement from '@/components/AvatarElement';
 import Comments from '@/components/AllComments';
 import { type Post, type Comment } from '@/lib/definitions';
 import PostPageSkeleton from '@/components/PostPageSkeleton';
+import Like from '@/components/Like';
 
 export default function PostPage({
   params,
@@ -58,7 +59,7 @@ export default function PostPage({
           
           <div className="flex justify-between mt-2 p-2">
             <div className="flex items-center"><AvatarElement width={30} height={30} /><ChevronDown className="w-3 h-3"/></div>
-            <div className="flex items-start gap-1"><ThumbsUp />{post.likes}</div>
+            <Like postId={id} />
             <div className="flex items-center gap-1"><MessageCircleMore />{comments.length}</div>
             <div className="flex items-center gap-1"><Share2 />Share</div>
           </div>
