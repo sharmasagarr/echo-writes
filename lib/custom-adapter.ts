@@ -1,6 +1,6 @@
 import { Adapter } from "next-auth/adapters";
 import { PrismaClient } from "@/app/generated/prisma";
-import { generateUniqueUsername } from "./utils";
+import { generateUniqueUsername } from "@/lib/utils/getUniqueUsername";
 import { client } from "@/app/sanity/lib/client";
 import { createAuthorInSanity } from "@/app/sanity/create-author";
 
