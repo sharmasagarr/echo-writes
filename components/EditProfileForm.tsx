@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useUser } from "@/context/UserContext";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 export default function EditProfilePage({oldName, oldImage, oldBio}: {oldName: string, oldImage: string, oldBio: string}) {
     const [name, setName] = useState<string>(oldName);

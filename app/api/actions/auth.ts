@@ -3,7 +3,7 @@
 import prisma from '@/lib/prisma'
 import { SignupFormSchema, FormState } from '@/lib/definitions'
 import bcrypt from 'bcryptjs'
-import { generateUniqueUsername } from '@/lib/utils'
+import { generateUniqueUsername } from '@/lib/utils/getUniqueUsername'
 import { createAuthorInSanity } from '@/app/sanity/create-author'
 import { client } from '@/app/sanity/lib/client'
 

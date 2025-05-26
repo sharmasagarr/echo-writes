@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import { X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/cn';
 
 export default function Login() {
   const [email, setEmail] = useState('');

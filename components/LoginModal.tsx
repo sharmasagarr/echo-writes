@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import LoginForm from "@/components/LoginForm";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 export default function LoginModal() {
   const router = useRouter();

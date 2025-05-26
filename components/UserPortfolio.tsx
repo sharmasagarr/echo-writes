@@ -6,7 +6,8 @@ import { type Author, type Post } from "@/lib/definitions";
 import { urlFor } from "@/app/sanity/lib/image";
 import { format } from 'date-fns'; // Import date formatting library
 import Link from 'next/link'; // Import Link component for navigation
-import { formatDate, getDescription } from "@/lib/utils";
+import { formatDate} from "@/lib/utils/formatDate";
+import { getDescription } from "@/lib/utils/getDescription";
 import { Eye } from "lucide-react";
 
 export default function UserPortfolio({ username }: { username: string }) {

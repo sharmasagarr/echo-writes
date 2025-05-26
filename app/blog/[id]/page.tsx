@@ -5,7 +5,7 @@ import { ChevronDown, ThumbsUp, Eye, MessageCircleMore, Share2 } from 'lucide-re
 import ReadBlog from "@/components/ReadBlog";
 import UpdateViews from "@/components/UpdateViews";
 import AddComment from "@/components/AddComment";
-import { formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/utils/formatDate';
 import AvatarElement from '@/components/AvatarElement';
 import Comments from '@/components/AllComments';
 import { type Post, type Comment } from '@/lib/definitions';

@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/app/sanity/lib/image";
-import { timeAgo } from "@/lib/utils";
+import { timeAgo } from "@/lib/utils/timeAgo";
 import { type Comment } from "@/lib/definitions";
 
 const Comments = ({ postId, comments, setComments }: { postId: string, comments: Comment[], setComments: Dispatch<SetStateAction<Comment[]>> }) => {

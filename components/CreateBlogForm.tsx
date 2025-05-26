@@ -12,7 +12,7 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { Send, X } from 'lucide-react';
 import { useRouter } from "next/navigation"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/cn"
 
 const BlogForm = () => {
     const [title, setTitle] = useState('');

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
 import { useTheme } from 'next-themes';
-import { getAllCategories } from '@/lib/utils';
+import { getAllCategories } from '@/lib/utils/getAllCategories';
 
 type CategoryOption = {
   value: string;
