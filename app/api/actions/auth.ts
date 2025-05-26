@@ -3,6 +3,9 @@
 import prisma from '@/lib/prisma'
 import { SignupFormSchema, FormState } from '@/lib/definitions'
 import bcrypt from 'bcryptjs'
+import { generateUniqueUsername } from '@/lib/utils'
+import { createAuthorInSanity } from '@/app/sanity/create-author'
+import { client } from '@/app/sanity/lib/client'
 
  
 export async function signup(_state: FormState, formData: FormData) {
@@ -38,12 +41,15 @@ export async function signup(_state: FormState, formData: FormData) {
             }
         }
 
-        // Creating the user
+        const username = await generateUniqueUsername(name);
+        
+        // Creating the user in database
         const user = await prisma.user.create({
             data: {
                 name,
                 email,
-                passwordHash,
+                password: passwordHash,
+                username
             },
         });
 
@@ -52,6 +58,28 @@ export async function signup(_state: FormState, formData: FormData) {
                 success: false,
                 message: 'An error occurred while creating your account.',
             }
+        }
+
+        //Creating author in sanity
+        const authorExists = await client.fetch(
+        `*[_type == "author" && email == $email][0]`,
+        { email: user.email }
+        );
+
+        if (!authorExists) {
+            const dbUser = await prisma.user.findUnique({
+                where: { email: user.email },
+                select: {
+                    username: true,
+                }
+            });
+            await createAuthorInSanity({
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                image: null,
+                username: dbUser?.username ?? "",
+            });
         }
 
         return {

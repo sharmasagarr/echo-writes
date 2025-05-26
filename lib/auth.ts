@@ -1,14 +1,13 @@
 import NextAuth from "next-auth";
+import { CustomAdapter } from "./custom-adapter";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
 import prisma from "@/lib/prisma";
 import { compare } from "bcryptjs";
-import { client } from "@/app/sanity/lib/client";
-import { createAuthorInSanity } from "@/app/sanity/createAuthor";
-import { urlFor } from "@/app/sanity/lib/image";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  adapter: CustomAdapter(),
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -33,9 +32,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       
         const user = await prisma.user.findUnique({
           where: { email },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            password: true,
+          },
         });
       
-        if (!user || !(await compare(password, user.passwordHash))) {
+        if (!user || !(await compare(password, user.password as string))) {
           return null;
         }        
       
@@ -43,53 +48,64 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           id: user.id,
           name: user.name,
           email: user.email,
-          image: "",
+          image: null,
         };
       },
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
-      if (user?.email) {
-        const authorExists = await client.fetch(
-          `*[_type == "author" && email == $email][0]`,
-          { email: user.email }
-        );
-  
-        if (!authorExists) {
-          await createAuthorInSanity({
-            name: user.name,
-            email: user.email,
-            image: user.image ?? undefined,
+    async signIn({ user, account }) {
+      console.log("User signed in:", user);
+      console.log("Account:", account);
+      // If it's an OAuth sign-in (not credentials)
+      if (account && account?.provider !== "credentials") {
+        const existingUser = await prisma.user.findUnique({
+          where: { email: user.email },
+        });
+
+        if (existingUser) {
+          const existingAccount = await prisma.account.findFirst({
+            where: {
+              userId: existingUser.id,
+              provider: account.provider,
+            },
           });
+
+          // If no account exists for this provider, link it
+          if (!existingAccount) {
+            await prisma.account.create({
+              data: {
+                userId: existingUser.id,
+                provider: account.provider,
+                providerAccountId: account.providerAccountId,
+                type: account.type,
+              },
+            });
+          }
         }
       }
-  
       return true;
     },
   
     async jwt({ token, user }) {
+      console.log("JWT Callback - Token:", token);
+      console.log("JWT Callback - User:", user);
       if (user) {
-        const { image: imageFromSanity, _id: sanityUserId, username: sanityUsername } = await client.fetch(
-          `*[_type == "author" && email == $email][0]{_id, username, image}`,
-          { email: user.email }
-        );
-
-        if (imageFromSanity) {
-          const imageFromSanityUrl = urlFor(imageFromSanity)!
-            .width(50)
-            .height(50)
-            .url();
-          user.image = imageFromSanityUrl;
-        } else {
-          user.image = null;
-        }   
-          
-        token.id = sanityUserId;
-        token.email = user.email;
-        token.username = sanityUsername;
-        token.name = user.name;
-        token.image = user.image;
+        const dbUser = await prisma.user.findUnique({
+        where: { email: user.email },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          username: true,
+        },
+      });
+        if (dbUser) {
+          token.id = dbUser?.id ?? "";
+          token.email = user.email;
+          token.username = dbUser?.username ?? "";
+          token.name = user.name;
+        }
       }
       return token;
     },
@@ -97,9 +113,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id;
-        session.user.image = token.image;
         session.user.username = token.username;
       }
+      console.log("Session Callback - Session:", session);
+      console.log("Session Callback - Token:", token);
       return session;
     },
   },

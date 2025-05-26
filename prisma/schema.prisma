@@ -9,9 +9,87 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  name         String
-  email        String   @unique
-  passwordHash String
-  createdAt    DateTime @default(now())
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  username      String?   @unique
+  emailVerified DateTime?
+  password      String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  posts         Post[]
+  views         View[]
+  likes         Like[]
+  comments      Comment[]
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Post {
+  id         String   @id @default(cuid())
+  sanityId   String   @unique
+  slug       String   @unique
+  authorId   String
+  author     User     @relation(fields: [authorId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Analytics & engagement
+  views      View[]
+  likes      Like[]
+  comments   Comment[]
+
+  @@index([authorId])
+  @@index([createdAt])
+}
+
+model View {
+  id         String   @id @default(cuid())
+  postId     String
+  post       Post     @relation(fields: [postId], references: [id])
+  userId     String?  // Null if anonymous
+  user       User?    @relation(fields: [userId], references: [id])
+  ipAddress  String?
+  userAgent  String?  // Browser info
+  referrer   String?  // For traffic source
+  createdAt  DateTime @default(now())
+}
+
+model Like {
+  id         String   @id @default(cuid())
+  postId     String
+  post       Post     @relation(fields: [postId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([postId, userId]) // Prevent duplicate likes
+}
+
+model Comment {
+  id         String    @id @default(cuid())
+  content    String
+  postId     String
+  post       Post      @relation(fields: [postId], references: [id])
+  userId     String?
+  user       User?     @relation(fields: [userId], references: [id])
+  parentId   String?   // For replies
+  parent     Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies    Comment[] @relation("CommentReplies")
+  ipAddress  String?
+  isFlagged  Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }

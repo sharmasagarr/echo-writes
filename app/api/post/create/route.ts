@@ -1,5 +1,7 @@
 import { writeClient } from '@/app/sanity/lib/write-client';
+import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
+import { generateUniqueSlug } from '@/lib/utils/getUniqueSlug';
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,8 +13,13 @@ export async function POST(req: NextRequest) {
     const categoryId = formData.get('category') as string;
     const imageFile = formData.get('image') as File | null;
 
-    if (!title || !content || !authorId) {
+    if (!title || !content || !authorId || !categoryId || !imageFile) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+    // Generate a unique slug for the post
+    const generatedSlug = await generateUniqueSlug(title);
+    if (!generatedSlug) {
+      return NextResponse.json({ error: 'Failed to generate a unique slug' }, { status: 500 });
     }
 
     let imageRef = null;
@@ -32,9 +39,14 @@ export async function POST(req: NextRequest) {
       };
     }
 
+    // Create the new post document in Sanity
     const newPost = await writeClient.create({
       _type: 'post',
       title,
+      slug: {
+        _type: 'slug',
+        current: generatedSlug,
+      },
       body: content,
       author: {
         _type: 'reference',
@@ -45,8 +57,14 @@ export async function POST(req: NextRequest) {
         _type: 'reference',
         _ref: categoryId,
       },
-      likes: 0,
-      views: 0,
+    });
+    //Create the post details in database
+    await prisma.post.create({
+      data: {
+        sanityId: newPost._id,
+        slug: generatedSlug,
+        authorId
+      },
     });
 
     return NextResponse.json({ success: true, post: newPost });

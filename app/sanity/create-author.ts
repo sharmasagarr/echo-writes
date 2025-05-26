@@ -1,7 +1,6 @@
 import { client } from './lib/client'
 import { writeClient } from './lib/write-client';
 import axios from 'axios';
-import { generateUniqueUsername } from '@/lib/utils';
 
 async function uploadImageToSanity(imageUrl: string) {
   try {
@@ -26,8 +25,9 @@ async function uploadImageToSanity(imageUrl: string) {
 export async function createAuthorInSanity(user: {
   name?: string;
   email?: string;
-  image?: string;
+  image: string | null;
   id?: string;
+  username?: string;
 }) {
   if (!user?.email) return;
 
@@ -57,9 +57,10 @@ export async function createAuthorInSanity(user: {
   await writeClient.create({
     _type: 'author',
     name: user.name ?? 'Anonymous',
-    username: await generateUniqueUsername(user.name ?? "anonymous123"),
+    username: user.username,
     email: user.email,
     _id: user.id,
     image: imageRef,
+    bio: 'Hey there! I am a new author on echo-writes. Stay tuned for my posts!',
   });
 }

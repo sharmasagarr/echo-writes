@@ -1,4 +1,5 @@
 import { writeClient } from "@/app/sanity/lib/write-client";
+import prisma from "@/lib/prisma";
 import { deleteUnusedAsset } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -57,6 +58,14 @@ export async function POST(req: NextRequest) {
     // Cleanup: Delete old asset if it's not being reused
     if ((isAvatarDeleted || image) && oldAssetId && oldAssetId !== imageRef?.asset?._ref) {
       await deleteUnusedAsset(oldAssetId);
+    }
+
+    // If the name was changed, update the user's name in the database
+    if (name !== existingUser?.name) {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { name },
+      });
     }
 
     return NextResponse.json({ success: true, updatedUser: result }, { status: 200 });

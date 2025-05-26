@@ -8,6 +8,8 @@ import { signOut, useSession } from "next-auth/react";
 import AvatarElement from "./AvatarElement";
 import { useRouter, usePathname } from "next/navigation";
 import { useUser } from "@/context/UserContext";
+import slugify from "slugify";
+import { nanoid } from "nanoid";
 
 export default function UserProfile() {
   const [hasMounted, setHasMounted] = useState(false);
@@ -15,6 +17,10 @@ export default function UserProfile() {
   const { user, loadingUser } = useUser();
   const router = useRouter();
   const currentUrl = usePathname();
+  console.log(session)
+
+  const slug = `${slugify('hey there i am using echo-writes', { lower: true, strict: true })}-${nanoid(1)}`;
+  console.log("Slug:", slug);
 
   useEffect(() => setHasMounted(true), []);
 

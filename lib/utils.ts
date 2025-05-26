@@ -81,6 +81,7 @@ async function isUsernameTaken(username: string): Promise<boolean> {
   );
   return result;
 }
+
 // function to get all categories
 export async function getAllCategories() {
   const allCategories = await client.fetch(
