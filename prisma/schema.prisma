@@ -38,8 +38,7 @@ model Account {
 }
 
 model Post {
-  id         String   @id @default(cuid())
-  sanityId   String   @unique
+  id         String   @id
   slug       String   @unique
   authorId   String
   author     User     @relation(fields: [authorId], references: [id])

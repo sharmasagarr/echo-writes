@@ -58,10 +58,11 @@ export async function POST(req: NextRequest) {
         _ref: categoryId,
       },
     });
+    
     //Create the post details in database
     await prisma.post.create({
       data: {
-        sanityId: newPost._id,
+        id: newPost._id,
         slug: generatedSlug,
         authorId
       },

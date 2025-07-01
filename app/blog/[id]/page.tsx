@@ -19,6 +19,7 @@ export default function PostPage({
 }) {
   const { id } = use(params);
   const [post, setPost] = useState<Post>()
+  const [ likesCount, setLikesCount ] = useState<number>(0)
   const [ comments, setComments ] = useState<Comment[]>([])
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function PostPage({
         });
         const json = await res.json();
         setPost(json.post);
+        setLikesCount(json.likesCount);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
@@ -58,9 +60,17 @@ export default function PostPage({
           </div>
           
           <div className="flex justify-between mt-2 p-2">
-            <div className="flex items-center"><AvatarElement width={30} height={30} /><ChevronDown className="w-3 h-3"/></div>
-            <Like postId={id} />
-            <div className="flex items-center gap-1"><MessageCircleMore />{comments.length}</div>
+            <div className="flex items-center"><AvatarElement width={30} height={30} /><div className='min-w-[3ch] justify-self-start'><ChevronDown className="w-3 h-3"/></div></div>
+            <Like
+              prevLikesCount={likesCount}
+              postId={id}
+            />
+            <div className="flex items-center gap-1">
+              <MessageCircleMore />
+              <span className="inline-block min-w-[3ch] text-left tabular-nums">
+                {comments.length}
+              </span>
+            </div>
             <div className="flex items-center gap-1"><Share2 />Share</div>
           </div>
           <AddComment

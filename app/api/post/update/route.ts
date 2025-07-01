@@ -1,5 +1,5 @@
 import { writeClient } from '@/app/sanity/lib/write-client';
-import { deleteUnusedAsset } from '@/lib/utils';
+import { deleteUnusedAsset } from '@/lib/utils/deleteUnusedAsset';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {

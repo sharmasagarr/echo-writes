@@ -1,18 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Heart } from "lucide-react";
 
-const Like = ({ postId }: { postId: string }) => {
-  const [likesCount, setLikesCount] = useState(0);
+const Like = ({ postId, prevLikesCount }: { postId: string, prevLikesCount: number  }) => {
+  const [likesCount, setLikesCount] = useState(prevLikesCount);
   const [liked, setLiked] = useState(false);
-
-  const likedKey = `liked_${postId}`;
-
-  useEffect(() => {
-    const alreadyLiked = localStorage.getItem(likedKey) === "true";
-    setLiked(alreadyLiked);
-  }, [postId]);
 
   const handleLike = async () => {
     const newLikedState = !liked;
@@ -21,13 +14,6 @@ const Like = ({ postId }: { postId: string }) => {
     setLiked(newLikedState);
     setLikesCount(newLikesCount);
 
-    // Store locally to prevent duplicate likes
-    if (newLikedState) {
-      localStorage.setItem(likedKey, "true");
-    } else {
-      localStorage.removeItem(likedKey);
-    }
-
     // API call to update likes on server
     try {
       await fetch("/api/likes/update", {
@@ -35,7 +21,7 @@ const Like = ({ postId }: { postId: string }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ postId, liked: newLikedState }),
+        body: JSON.stringify({ postId }),
       });
     } catch (err) {
       console.error("Failed to update likes:", err);

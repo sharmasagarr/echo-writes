@@ -17,10 +17,10 @@ export default function UserProfile() {
   const { user, loadingUser } = useUser();
   const router = useRouter();
   const currentUrl = usePathname();
-  console.log(session)
+  // console.log(session)
 
   const slug = `${slugify('hey there i am using echo-writes', { lower: true, strict: true })}-${nanoid(1)}`;
-  console.log("Slug:", slug);
+  // console.log("Slug:", slug);
 
   useEffect(() => setHasMounted(true), []);
 

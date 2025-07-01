@@ -55,8 +55,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async signIn({ user, account }) {
-      console.log("User signed in:", user);
-      console.log("Account:", account);
+      // console.log("User signed in:", user);
+      // console.log("Account:", account);
       // If it's an OAuth sign-in (not credentials)
       if (account && account?.provider !== "credentials") {
         const existingUser = await prisma.user.findUnique({
@@ -88,8 +88,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   
     async jwt({ token, user }) {
-      console.log("JWT Callback - Token:", token);
-      console.log("JWT Callback - User:", user);
+      // console.log("JWT Callback - Token:", token);
+      // console.log("JWT Callback - User:", user);
       if (user) {
         const dbUser = await prisma.user.findUnique({
         where: { email: user.email },
@@ -115,8 +115,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.id = token.id;
         session.user.username = token.username;
       }
-      console.log("Session Callback - Session:", session);
-      console.log("Session Callback - Token:", token);
+      // console.log("Session Callback - Session:", session);
+      // console.log("Session Callback - Token:", token);
       return session;
     },
   },

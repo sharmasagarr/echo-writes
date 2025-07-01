@@ -20,7 +20,7 @@ export default function DeletePostButton({ postId, userId }: { postId: string; u
         },
         body: JSON.stringify({ postId, userId }),
       });
-      console.log(res);
+      // console.log(res);
 
       if (!res.ok) throw new Error("Failed to delete");
 

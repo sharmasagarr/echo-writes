@@ -12,7 +12,7 @@ export async function deleteUnusedAsset(assetId: string) {
     if (references.length === 0) {
       // Safe to delete
       await writeClient.delete(assetId);
-      console.log(`✅ Deleted unused asset: ${assetId}`);
+      // console.log(`✅ Deleted unused asset: ${assetId}`);
       return { deleted: true };
     } else {
       console.warn(`⚠️ Asset ${assetId} is still in use. Not deleting.`);
